@@ -5,10 +5,15 @@ A React Native (Expo) mobile app for managing personal book collections with sec
 ✨ What This App Demonstrates
 
 ✅ Modern React Native + Expo Router (App Router)
+
 ✅ Clean Context-based authentication flow
+
 ✅ Appwrite BaaS (Auth, Database, Permissions)
+
 ✅ Real-world CRUD operations
+
 ✅ Dark / Light theme support
+
 ✅ Scalable project structure
 
 🛠 Tech Stack
