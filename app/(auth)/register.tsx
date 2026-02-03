@@ -1,4 +1,4 @@
-import { Keyboard, StyleSheet, Text, TouchableWithoutFeedback } from 'react-native'
+import { Keyboard, StyleSheet, Text, TouchableWithoutFeedback, ImageBackground, useColorScheme } from 'react-native'
 import { Link } from 'expo-router'
 import { Colors } from '../../constants/Color'
 import { useState } from 'react'
@@ -8,6 +8,7 @@ import ThemedText from '../../components/ThemedText'
 import ThemedButton from '../../components/ThemedButton'
 import ThemedTextInput from '../../components/ThemedTextInput'
 import useUser from '../../hooks/useUser'
+import ImageBg from '../../assets/img/Going offline-amico.png'
 
 const Register = () => {
   const [email,setEmail] = useState('')
@@ -15,6 +16,8 @@ const Register = () => {
   const [error,setError] = useState<string | null>(null)
 
   const { register } = useUser()
+  
+  const colorScheme = useColorScheme()
   
   const handleSubmit = async() => {
     setError(null)
@@ -31,6 +34,7 @@ const Register = () => {
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <ThemedView style={styles.container} safe>
+        <ImageBackground source={ImageBg} resizeMode='contain' style={[StyleSheet.absoluteFillObject, {opacity: colorScheme === 'light' ? 0.4 : 0.2, top:-50, bottom:50}]}></ImageBackground>
         <Spacer />
 
         <ThemedText title={true} style={[styles.title, {marginBottom: 20}]}>

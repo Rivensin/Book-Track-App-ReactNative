@@ -1,14 +1,22 @@
-import { Image, useColorScheme } from "react-native";
-import DarkLogo from '../assets/img/channels10_profile-dark.jpg';
-import LightLogo from '../assets/img/channels10_profile.jpg';
+import { Image, useColorScheme, StyleSheet, ViewProps, ImageSourcePropType } from "react-native";
 
-const ThemedLogo = ({...props}) => {
+const ThemedLogo = ({src,width,height,opacity =0.4,...props}) => {
     const colorScheme = useColorScheme();
-    const logo = colorScheme === 'dark' ? DarkLogo : LightLogo;
 
-    return(
-        <Image source={logo} {...props}/>
+    return (
+        <Image 
+            source={src}
+            style={[styles.logo,{width:width, height: height, opacity: opacity}]}
+            {...props}
+        />
     )
 }
 
 export default ThemedLogo
+
+const styles = StyleSheet.create({
+  logo: {
+    resizeMode: 'contain',
+    opacity: 0.4
+  },
+});

@@ -12,7 +12,7 @@ import UserOnly from '../../components/auth/UserOnly'
 
 const RootLayout = ({children} : {children: React.ReactNode}) => {
   const colorScheme = useColorScheme()
-  const theme = Colors[colorScheme] ?? Colors.light
+  const theme = Colors[colorScheme ?? 'light']
   
   return (
     <UserOnly>

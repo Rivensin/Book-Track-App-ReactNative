@@ -1,4 +1,4 @@
-import { Text, StyleSheet } from 'react-native'
+import { Text, StyleSheet, ImageBackground, useColorScheme } from 'react-native'
 import { useLocalSearchParams, useRouter } from 'expo-router'
 import ThemedText from '../../../components/ThemedText'
 import ThemedButton from '../../../components/ThemedButton'
@@ -9,12 +9,14 @@ import UseBooks from '../../../hooks/useBooks'
 import { useEffect, useState } from 'react'
 import ThemedLoader from '../../../components/ThemedLoader'
 import { Colors } from '../../../constants/Color'
+import ImageBg from '../../../assets/img/Bibliophile-bro.png'
 
 const BooksDetails = () => {
   const { id } = useLocalSearchParams<{id: string}>()
   const router = useRouter()
   const { fetchBooksById, deleteBook } = UseBooks()
   const [books,setBooks] = useState(null)
+  const colorScheme = useColorScheme() 
 
   const handleDelete = async() => {
     try {
@@ -46,6 +48,7 @@ const BooksDetails = () => {
 
   return (
     <ThemeView style={styles.container} safe>
+      <ImageBackground source={ImageBg} resizeMode='contain' style={[StyleSheet.absoluteFillObject, {opacity: colorScheme === 'light' ? 0.4 : 0.2, top: 120, bottom: -120}]}></ImageBackground>
       <ThemedCard style={styles.card}>
         <ThemedText style={styles.title}>{books?.title}</ThemedText>
         <ThemedText>Written by {books?.author}</ThemedText>

@@ -9,7 +9,7 @@ type ThemeViewProps = ViewProps & {
 
 const ThemeView = ({style, safe = false, ...props} : ThemeViewProps) => {
   const colorScheme = useColorScheme()
-  const theme = Colors[colorScheme] ?? Colors.light
+  const theme = Colors[colorScheme ?? 'light']
 
   if(!safe){
     return (
@@ -22,18 +22,17 @@ const ThemeView = ({style, safe = false, ...props} : ThemeViewProps) => {
   const insets = useSafeAreaInsets()
 
   return (
-  <View 
-    style={[{
-      backgroundColor: theme.background,
-      paddingTop: insets.top,
-      paddingBottom: insets.bottom,
-      },
-      style
-    ]} 
-    {...props} />
+    <View 
+      style={[{
+        backgroundColor: theme.background,
+        paddingTop: insets.top,
+        paddingBottom: insets.bottom,
+        },
+        style
+      ]} 
+      {...props}
+    />
   )
-  
-  
 }
 
 export default ThemeView

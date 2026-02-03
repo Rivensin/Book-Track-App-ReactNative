@@ -1,5 +1,5 @@
-import { StyleSheet, FlatList, Pressable } from 'react-native'
-import React, { use } from 'react'
+import { StyleSheet, FlatList, Pressable, ImageBackground, useColorScheme } from 'react-native'
+import React from 'react'
 import ThemedText from '../../components/ThemedText'
 import ThemeView from '../../components/ThemeView'
 import ThemedCard from '../../components/ThemeCard'
@@ -7,13 +7,17 @@ import Spacer from '../../components/Spacer'
 import useBooks from '../../hooks/useBooks'
 import { Colors } from '../../constants/Color'
 import { useRouter } from 'expo-router/build/exports'
+import ImageBg from '../../assets/img/Bibliophile-pana.png'
 
 const Books = () => {
   const { books } = useBooks()
   const router = useRouter();
 
+  const colorScheme = useColorScheme()
+
   return (
     <ThemeView style={styles.container} safe>
+      <ImageBackground source={ImageBg} resizeMode='contain' style={[StyleSheet.absoluteFillObject, {opacity: colorScheme === 'light' ? 0.4 : 0.2, top: 50, bottom: -50}]}></ImageBackground>
       <Spacer />
 
       <ThemedText title={true} style={styles.heading}>
@@ -51,7 +55,8 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   list: {
-    marginTop: 20
+    marginTop: 20,
+    opacity: 0.8
   },
   card: {
     width: '90%',

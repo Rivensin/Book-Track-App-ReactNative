@@ -1,4 +1,4 @@
-import { Keyboard, StyleSheet, Text, TouchableWithoutFeedback } from 'react-native'
+import { Keyboard, StyleSheet, Text, TouchableWithoutFeedback, ImageBackground, useColorScheme } from 'react-native'
 import { Link } from 'expo-router'
 import { useState } from 'react'
 import { Colors } from '../../constants/Color'
@@ -8,7 +8,7 @@ import ThemedView from '../../components/ThemeView'
 import ThemedText from '../../components/ThemedText'
 import ThemedButton from '../../components/ThemedButton'
 import ThemedTextInput from '../../components/ThemedTextInput'
-import ThemedLoader from '../../components/ThemedLoader'
+import ImageBg from '../../assets/img/Going offline-amico.png'
 
 const Login = () => {
   const [email,setEmail] = useState('')
@@ -16,6 +16,8 @@ const Login = () => {
   const [error,setError] = useState<string | null>(null)
 
   const { login } = UseUser()
+
+  const colorScheme = useColorScheme()
 
   const handleSubmit = async() => {
     setError(null)
@@ -30,6 +32,7 @@ const Login = () => {
   return (
     <TouchableWithoutFeedback onPress={() => {Keyboard.dismiss()}}>
       <ThemedView style={styles.container} safe>
+        <ImageBackground source={ImageBg} resizeMode='contain' style={[StyleSheet.absoluteFillObject, {opacity: colorScheme === 'light' ? 0.4 : 0.2, top:-50, bottom:50}]}></ImageBackground>
         <Spacer />
 
         <ThemedText title={true} style={[styles.title, {marginBottom: 20}]}>
@@ -102,5 +105,10 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 6,
     marginHorizontal: 10,
-  }
+  },
+  background: {
+    flex: 1,
+    width: '100%',
+    height: '100%',
+  },
 })

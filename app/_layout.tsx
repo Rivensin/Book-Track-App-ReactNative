@@ -12,10 +12,10 @@ const RootLayout = () => {
   return (
     <UserProvider>
       <BooksProvider>
-        <StatusBar style='auto' translucent={false}/>
+        {/* <StatusBar style='auto' translucent={false}/> */}
         <Stack screenOptions={{
           headerStyle: { 
-            backgroundColor: theme.navBackground 
+            backgroundColor: theme.navBackground,             
           },
           headerTintColor: theme.title,
         }}>
@@ -25,7 +25,6 @@ const RootLayout = () => {
         </Stack>
       </BooksProvider>
     </UserProvider>
-    
   )
 }
 

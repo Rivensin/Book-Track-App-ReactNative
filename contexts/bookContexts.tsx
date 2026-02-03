@@ -92,7 +92,6 @@ export const BooksProvider = ({children} : {children: React.ReactNode}) => {
     let unsubscribe
     const channel = `databases.${DATABASE_ID}.collections.${COLLECTION_ID}.documents`
 
-
     if(user){
       fetchBooks()
       unsubscribe= client.subscribe(channel, (response) => {

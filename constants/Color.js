@@ -1,6 +1,7 @@
 export const Colors = {
   primary: '#6849a7',
   warning: '#cc475a',
+  button: '#F56652',
   
   dark: {
     text: '#d4d4d4',
@@ -12,7 +13,7 @@ export const Colors = {
     uiBackground: '#2f2b3d',
   },
   light: {
-    text: '#625f72',
+    text: '#000',
     title: '#201e2b',
     background: '#e0dfe8',
     navBackground: '#e8e7ef',

@@ -11,7 +11,7 @@ const ThemedTextInput = ({style,...props}) => {
   return (
     <TextInput 
       placeholder='Email'
-      placeholderTextColor='#f2f2f2'
+      placeholderTextColor='#a9a9a9'
       underlineColorAndroid= 'transparent'
       onFocus={() => setFocused(true)}
       onBlur={() => setFocused(false)} 
@@ -21,7 +21,8 @@ const ThemedTextInput = ({style,...props}) => {
           borderColor: focused ? '#92b6f0' : theme.text,
           color: theme.text,
           padding: 20,
-          borderRadius: 6
+          borderRadius: 6,
+          opacity: focused ? 1 : 0.7
         },
         style
       ]}

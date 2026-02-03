@@ -18,11 +18,12 @@ export default ThemedButton
 
 const styles = StyleSheet.create({
   btn: {
-    backgroundColor: Colors.primary,
+    backgroundColor: Colors.button,
     paddingVertical: 18,
     paddingHorizontal: 100,
     borderRadius: 6,
     marginVertical: 10,
+    opacity: 0.9
   },
   pressed: {
     opacity: 0.5,
