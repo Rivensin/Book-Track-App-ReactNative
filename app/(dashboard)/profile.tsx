@@ -14,6 +14,7 @@ const Profile = () => {
   return (
     <ThemeView style={styles.container} safe={true}>
       <ImageBackground source={ImageBg} resizeMode='contain' style={[StyleSheet.absoluteFillObject, {opacity: colorScheme === 'light' ? 0.4 : 0.2}]}></ImageBackground>
+
       <ThemedText title={true} style={styles.heading}>
         {user?.email}
       </ThemedText>
@@ -45,5 +46,5 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 18,
     textAlign: 'center',
-  }
+  },  
 })

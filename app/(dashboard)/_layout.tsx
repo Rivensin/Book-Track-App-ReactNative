@@ -10,24 +10,30 @@ import CreateActive from '../../assets/img/create-icon-active.png'
 import CreateIdle from '../../assets/img/create-icon-idle.png'
 import UserOnly from '../../components/auth/UserOnly'
 
-const RootLayout = ({children} : {children: React.ReactNode}) => {
+const RootLayout = () => {
   const colorScheme = useColorScheme()
   const theme = Colors[colorScheme ?? 'light']
   
   return (
     <UserOnly>
       <StatusBar style='auto'/>
-      <Tabs screenOptions={{
-        headerShown: false,
-        animation: 'none',
-        tabBarStyle: {
-          backgroundColor: theme.navBackground,
-          padding: 10,
-          height: 90
-        },
-        tabBarActiveTintColor: theme.iconColorFocused,
-        tabBarInactiveTintColor : theme.iconColor
-      }}> 
+      <Tabs
+        safeAreaInsets={{bottom: 0}} 
+        screenOptions={{
+          headerShown: false,
+          animation: 'none',        
+          tabBarStyle: {
+            backgroundColor: theme.navBackground,
+            height:60,
+            padding: 8,
+          },
+          tabBarLabelStyle: {
+            fontSize: 12,
+            marginBottom: 4,
+          },
+          tabBarActiveTintColor: theme.iconColorFocused,
+          tabBarInactiveTintColor : theme.iconColor
+        }}> 
 
         <Tabs.Screen 
           name='profile' 
@@ -40,7 +46,7 @@ const RootLayout = ({children} : {children: React.ReactNode}) => {
                 resizeMode= 'contain' 
               />
             )
-            }} 
+          }} 
         />
 
         <Tabs.Screen 
@@ -54,7 +60,7 @@ const RootLayout = ({children} : {children: React.ReactNode}) => {
                 resizeMode= 'contain' 
               />
             )
-            }} 
+          }} 
         />
 
         <Tabs.Screen 
@@ -68,15 +74,13 @@ const RootLayout = ({children} : {children: React.ReactNode}) => {
                 resizeMode= 'contain' 
               />
             )
-            }} 
+          }} 
         />
 
         <Tabs.Screen 
           name='books/[id]' 
           options={{href:null}} 
         />
-
-        {children}
       </Tabs>
     </UserOnly>
   )
