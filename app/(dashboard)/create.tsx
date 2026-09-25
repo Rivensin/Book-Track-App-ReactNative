@@ -1,5 +1,5 @@
 import { StyleSheet, TouchableWithoutFeedback, Keyboard, Text, ImageBackground, useColorScheme } from 'react-native'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import ThemedText from '../../components/ThemedText'
 import ThemeView from '../../components/ThemeView'
 import Spacer from '../../components/Spacer'
@@ -8,6 +8,8 @@ import { useRouter } from 'expo-router/build/exports'
 import ThemedTextInput from '../../components/ThemedTextInput'
 import ThemedButton from '../../components/ThemedButton'
 import ImageBg from '../../assets/img/Bibliophile-bro.png'
+import ImageBgDark from '../../assets/img/Bibliophile-bro-dark.png'
+import { Colors } from '../../constants/Color'
 
 const Create = () => {
   const [title, setTitle] = useState('')
@@ -18,6 +20,7 @@ const Create = () => {
   const { createBook } = useBooks()
   const router = useRouter()
   const colorScheme = useColorScheme()
+  const theme = Colors[colorScheme === 'dark' ? 'dark' : 'light'] 
 
   const handleSubmit = async() => {
     if(!title.trim() || !author.trim() || !description.trim()) return
@@ -37,9 +40,9 @@ const Create = () => {
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <ThemeView style={styles.container} safe>
-        <ImageBackground source={ImageBg} resizeMode='contain' style={[StyleSheet.absoluteFillObject, {opacity: colorScheme === 'light' ? 0.4 : 0.2, top: 50, bottom: -50}]}></ImageBackground>
-        <ThemedText title={true} style={styles.heading}>
+      <ThemeView style={styles.container} safe={true}>
+        <ImageBackground source={colorScheme === 'dark' ? ImageBgDark : ImageBg} resizeMode='contain' style={[StyleSheet.absoluteFill, {opacity: colorScheme === 'light' ? 0.4 : 0.8, backgroundColor: theme.background}]}></ImageBackground>
+        <ThemedText title={true} style={[styles.heading, {color: theme.textSecondary}]}>
           Add a New Book
         </ThemedText>
         <Spacer />

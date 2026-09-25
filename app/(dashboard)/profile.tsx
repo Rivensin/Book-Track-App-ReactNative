@@ -1,29 +1,31 @@
 import { StyleSheet, Text, ImageBackground, useColorScheme } from 'react-native'
-import React from 'react'
 import ThemedText from '../../components/ThemedText'
 import ThemeView from '../../components/ThemeView'
 import Spacer from '../../components/Spacer'
 import useUser from '../../hooks/useUser'
 import ThemedButton from '../../components/ThemedButton'
 import ImageBg from '../../assets/img/Book lover-pana.png'
+import ImageBgDark from '../../assets/img/Book lover-pana-dark.png'
+import { Colors } from '../../constants/Color'
 
 const Profile = () => {
   const { logout, user } = useUser();
   const colorScheme = useColorScheme()
+  const theme = Colors[colorScheme === 'dark' ? 'dark' : 'light'] 
 
   return (
     <ThemeView style={styles.container} safe={true}>
-      <ImageBackground source={ImageBg} resizeMode='contain' style={[StyleSheet.absoluteFillObject, {opacity: colorScheme === 'light' ? 0.4 : 0.2}]}></ImageBackground>
+      <ImageBackground source={colorScheme === 'dark' ? ImageBgDark : ImageBg} resizeMode='contain' style={[StyleSheet.absoluteFill, {opacity: colorScheme === 'light' ? 0.4 : 0.8, backgroundColor: theme.background}]}></ImageBackground>
 
-      <ThemedText title={true} style={styles.heading}>
+      <ThemedText title={true} style={[styles.heading, {color: theme.textSecondary}]}>
         {user?.email}
       </ThemedText>
       <Spacer />
 
-      <ThemedText>
+      <ThemedText style={{color: theme.textTertiary}}>
         Time to start reading some books...
       </ThemedText>
-      <Spacer height={300}/>
+      <Spacer height={340}/>
 
       <ThemedButton onPress={logout}>
         <Text style={{color: '#f2f2f2'}}>

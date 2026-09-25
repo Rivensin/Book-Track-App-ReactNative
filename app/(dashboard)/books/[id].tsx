@@ -9,14 +9,16 @@ import UseBooks from '../../../hooks/useBooks'
 import { useEffect, useState } from 'react'
 import ThemedLoader from '../../../components/ThemedLoader'
 import { Colors } from '../../../constants/Color'
-import ImageBg from '../../../assets/img/Bibliophile-bro.png'
+import ImageBg from '../../../assets/img/Bibliophile-amico.png'
+import ImageBgDark from '../../../assets/img/Bibliophile-amico-dark.png'
 
 const BooksDetails = () => {
   const { id } = useLocalSearchParams<{id: string}>()
   const router = useRouter()
   const { fetchBooksById, deleteBook } = UseBooks()
   const [books,setBooks] = useState(null)
-  const colorScheme = useColorScheme() 
+  const colorScheme = useColorScheme()
+  const theme = Colors[colorScheme === 'dark' ? 'dark' : 'light'] 
 
   const handleDelete = async() => {
     try {
@@ -48,16 +50,16 @@ const BooksDetails = () => {
 
   return (
     <ThemeView style={styles.container} safe>
-      <ImageBackground source={ImageBg} resizeMode='contain' style={[StyleSheet.absoluteFillObject, {opacity: colorScheme === 'light' ? 0.4 : 0.2, top: 120, bottom: -120}]}></ImageBackground>
-      <ThemedCard style={styles.card}>
-        <ThemedText style={styles.title}>{books?.title}</ThemedText>
-        <ThemedText>Written by {books?.author}</ThemedText>
+      <ImageBackground source={colorScheme === 'dark' ? ImageBgDark : ImageBg} resizeMode='contain' style={[StyleSheet.absoluteFill, {opacity: colorScheme === 'light' ? 0.4 : 0.8, backgroundColor: theme.background}]}></ImageBackground>
+      <ThemedCard style={[styles.card, {backgroundColor: theme.boxBackground}]}>
+        <ThemedText style={[styles.title, {color: theme.text}]}>{books?.title}</ThemedText>
+        <ThemedText style={{color: theme.textTertiary}}>Written by {books?.author}</ThemedText>
         <Spacer />
 
-        <ThemedText title={true}>Book Description:</ThemedText>
+        <ThemedText title={true} style={{color: theme.text}}>Book Description:</ThemedText>
         <Spacer height={10} />
 
-        <ThemedText>{books?.description}</ThemedText>
+        <ThemedText style={{color: theme.textTertiary}}>{books?.description}</ThemedText>
       </ThemedCard>
 
       <ThemedButton style={styles.delete} onPress={handleDelete}>

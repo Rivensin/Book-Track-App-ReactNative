@@ -3,11 +3,12 @@ import { Stack, useRouter } from 'expo-router'
 import { Colors } from '../constants/Color'
 import { UserProvider } from '../contexts/useContexts'
 import { BooksProvider } from '../contexts/bookContexts'
-import { Ionicons } from '@expo/vector-icons'
+import HeaderCustom from '../components/HeaderCustom'
+import UseUser from '../hooks/useUser'
 
 const RootLayout = () => {
   const colorScheme = useColorScheme()
-  const theme = Colors[colorScheme ?? 'light']
+  const theme = Colors[colorScheme === 'dark' ? 'dark' : 'light']
   const router = useRouter()
 
   return (
@@ -26,41 +27,7 @@ const RootLayout = () => {
             name='index' 
             options={{
               headerTitle: '',
-              headerLeft: () => (
-                <Pressable 
-                  onPress={() => router.push('/')}
-                  style={({ pressed }) => ({ opacity: pressed ? 0.6 : 1, paddingLeft: 8 })}
-                >
-                  <Text style={{ color: theme.title, fontSize: 18 }}>Book Track App</Text>
-                </Pressable>
-              ),
-              headerRight: () => (
-                <View style={styles.actionContainer}>
-                  <Pressable 
-                    onPress={() => router.push('/')}
-                    style={styles.iconButton}
-                  >
-                    <Ionicons name="mail-outline" size={24} color={theme.title} />
-                    <View style={styles.badge} />
-                  </Pressable>
-
-                  <Pressable 
-                    onPress={() => router.push('/')}
-                    style={styles.iconButton}
-                  >
-                    <Ionicons name="settings-outline" size={24} color={theme.title} />
-                  </Pressable>
-
-                  <Pressable 
-                    onPress={() => console.log('Logout clicked')}
-                    style={styles.iconButton}
-                  >
-                    <Ionicons name="log-out-outline" size={24} color={theme.title} />
-                  </Pressable>
-                </View>
-                
-              ),
-              
+              header: () => <HeaderCustom />,              
             }}
              
           />

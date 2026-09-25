@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
   btn: {
     backgroundColor: Colors.button,
     paddingVertical: 18,
-    paddingHorizontal: 100,
+    paddingHorizontal: 120,
     borderRadius: 6,
     marginVertical: 10,
     opacity: 0.9

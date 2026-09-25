@@ -4,7 +4,7 @@ import ThemeView from './ThemeView';
 
 const ThemedLoader = () => {
   const colorScheme = useColorScheme();
-  const theme = Colors[colorScheme ?? 'light'];
+  const theme = Colors[colorScheme === 'dark' ? 'dark' : 'light'] ;
 
   return (
     <ThemeView style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>

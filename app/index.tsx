@@ -1,81 +1,160 @@
-import { StyleSheet, Image, Text, useColorScheme,View, ScrollView, ImageBackground, Dimensions } from 'react-native'
-import { Link } from 'expo-router'
+import { StyleSheet, Image, Text, useColorScheme,View, ScrollView, ImageBackground, Dimensions, Pressable } from 'react-native'
+import { Link, useRouter } from 'expo-router'
 import ThemeView from '../components/ThemeView'
 import ThemedLogo from '../components/ThemeLogo'
-import Spacer from '../components/Spacer'
 import ThemedText from '../components/ThemedText'
 import Login from '../assets/img/login.png'
 import Register from '../assets/img/register.png'
-import Profile from '../assets/img/profile.png'
+import rentBook from '../assets/img/rent-book.png'
+import readBook from '../assets/img/reading-book.png'
+import bookList from '../assets/img/book-stack.png'
+import upcomingBook from '../assets/img/clock.png'
+import bookRank from '../assets/img/number-1.png'
+import addCoin from '../assets/img/give-coin.png'
+import deposit from '../assets/img/deposit.png'
+import reader from '../assets/img/reader.png'
+import podium from '../assets/img/podium.png'
+import discussion from '../assets/img/discussion.png'
 import UseUser from '../hooks/useUser'
 import { Colors } from '../constants/Color'
 import Logo1 from '../assets/img/Going offline-pana.png';
 import Logo2 from '../assets/img/Going offline-cuate.png';
 import Icon from '../assets/img/greeting-card.png';
-import ImageBg from '../assets/img/Book lover-pana.png';
+import Ionicons from '@expo/vector-icons/build/Ionicons'
 
 const Home = () => {
   const { user } = UseUser()
+  const router = useRouter()
 
   const colorScheme = useColorScheme()
-  const theme = Colors[colorScheme ?? 'light']
+  const theme = Colors[colorScheme === 'dark' ? 'dark' : 'light'] 
 
   const screenWidth = Dimensions.get('window').width
 
   return (
-    <ScrollView contentContainerStyle={{flexGrow: 1}}>
+    <ScrollView contentContainerStyle={{flexGrow: 1}} style={{backgroundColor: theme.background}}>
       <ThemeView style={[styles.container]} safe>
-        <ImageBackground source={ImageBg} resizeMode='contain' style={[StyleSheet.absoluteFillObject, {opacity: 0.4, top:-50, bottom:50}]}></ImageBackground>
-        <ThemedText 
-          style={[styles.title, {textAlign:'center'}]}
-          title={true}>
-          Book Track App
-        </ThemedText>
-        <Spacer height={20} />
+        <ImageBackground source={Logo1} style={styles.backgroundImage} imageStyle={{ opacity: 0.4 }}>
+          <ThemeView style={[styles.boxMenu, {backgroundColor: theme.menuBackground}]}>
+            <View style={{flexDirection: 'row', alignItems: 'center', marginLeft: 20, marginTop: 13, justifyContent: 'space-between'}}>
+              <ThemedText style={{fontSize: 18, fontWeight: 'bold', color: theme.text}}>
+                Book
+              </ThemedText>  
 
-        <ThemedText style={{textDecorationLine: 'underline',textAlign:'center'}}>
-          Manage your personal book collections
-        </ThemedText>
-        <Spacer height={50}/>
+              <View style={{flexDirection: 'row', alignItems:'center', gap: 10, marginRight: 20}}>
+                <ThemedText style={{fontSize: 13, fontWeight: 'bold', color: theme.textSecondary}}>
+                  Points
+                </ThemedText>        
 
-        <ThemeView style={{alignItems: 'flex-end', width:'100%'}}>
-          <View style={{position:'relative'}}>
-            <ThemedLogo src={Logo1} width={screenWidth * 0.9} height={400}/>
-            <View style={styles.absolute}>
-              <ThemedText style={{textDecorationColor: theme.text, textAlign: 'justify', lineHeight: 30, fontSize: 15, backgroundColor: colorScheme === 'light' ? 'white' : 'gray', opacity: 0.7, paddingHorizontal: 10}}>
-                Reading offers vast benefits, including boosting brainpower (memory, focus, analysis), reducing stress, expanding knowledge and vocabulary, improving empathy and communication, enhancing sleep, and providing mental well-being through mental stimulation and escapism.
-              </ThemedText>
-            </View>
-          </View>
-        </ThemeView>
+                <Ionicons name="eye-outline" size={22} color={theme.textSecondary} />
 
-        {user && (
-          <>
-            <ThemeView style={{ width:'100%' }}>
-              <View style={{position:'relative'}}>
-                <ThemedLogo src={Logo2} width={380} height={400}/>
+                <ThemedText style={{fontSize: 13, fontWeight: 'bold', color: theme.textSecondary}}>
+                  Filter
+                </ThemedText>        
 
-                <View style={[styles.absolute2]}>
-                  <View style={{flex:1, alignItems: 'center'}}>
-                    <ThemedText style={{color: theme.text, fontWeight: 'bold'}}>
-                      Welcome back, <Text style={{color: '#43A6C6'}}>{user.email}!</Text>
-                    </ThemedText>
-                    <Spacer height={15}/>
+                <Ionicons name="options-outline" size={22} color={theme.textSecondary} />
 
-                    <Link href="/profile" style={styles.link}>
-                      <ThemeView style={styles.button2}> 
-                        <Image 
-                            source={Profile}
-                            style={styles.icon} 
-                        />
-                        <ThemedText style={{marginLeft: 2}}>Go to Profile</ThemedText>
-                      </ThemeView> 
-                    </Link>
-                  </View>
                 </View>
-              </View>
-            </ThemeView>
-          </>
+            </View>
+
+            <View style={styles.grid}>
+              <ThemeView style={styles.gridItems}>
+                <Image source={rentBook} style={{width: 35, height: 35,}} />
+                <ThemedText style={{fontSize: 12, fontWeight: 'bold', color: theme.textSecondary}}>
+                  Rent Book
+                </ThemedText>     
+              </ThemeView>
+
+              <ThemeView style={styles.gridItems}>
+                <Image source={readBook} style={{width: 35, height: 35,}} />
+                <ThemedText style={{fontSize: 12, fontWeight: 'bold', color: theme.textSecondary}}>
+                  Read Book
+                </ThemedText>     
+              </ThemeView>
+
+              <Pressable style={styles.gridItems} onPress={() => router.push('/books')}>
+                <Image source={bookList} style={{width: 35, height: 35,}} />
+                <ThemedText style={{fontSize: 12, fontWeight: 'bold', color: theme.textSecondary}}>
+                  Book List
+                </ThemedText>     
+              </Pressable>
+
+              <ThemeView style={styles.gridItems}>
+                <Image source={upcomingBook} style={{width: 35, height: 35,}} />
+                <ThemedText style={{fontSize: 12, fontWeight: 'bold', color: theme.textSecondary}}>
+                  Upcoming Book
+                </ThemedText>     
+              </ThemeView>
+
+              <ThemeView style={styles.gridItems}>
+                <Image source={bookRank} style={{width: 35, height: 35,}} />
+                <ThemedText style={{fontSize: 12, fontWeight: 'bold', color: theme.textSecondary}}>
+                  Book Ranking
+                </ThemedText>     
+              </ThemeView>
+
+              <ThemeView style={styles.gridItems}>
+                <Image source={discussion} style={{width: 35, height: 35,}} />
+                <ThemedText style={{fontSize: 12, fontWeight: 'bold', color: theme.textSecondary}}>
+                  Forum
+                </ThemedText>     
+              </ThemeView>
+            </View>
+          </ThemeView>
+
+          <ThemeView style={[styles.boxMenu, {backgroundColor: theme.menuBackground, marginTop: 20}]}>
+            <View style={{flexDirection: 'row', alignItems: 'center', marginLeft: 20, marginTop: 13, justifyContent: 'space-between'}}>
+              <ThemedText style={{fontSize: 18, fontWeight: 'bold', color: theme.text}}>
+                Membership
+              </ThemedText>  
+
+              <View style={{flexDirection: 'row', alignItems:'center', gap: 10, marginRight: 20}}>
+                <ThemedText style={{fontSize: 13, fontWeight: 'bold', color: theme.textSecondary}}>
+                  Filter
+                </ThemedText>        
+
+                <Ionicons name="options-outline" size={22} color={theme.textSecondary} />
+                </View>
+            </View>
+
+            <View style={styles.grid}>
+              <ThemeView style={styles.gridItems}>
+                <Image source={addCoin} style={{width: 35, height: 35,}} />
+                <ThemedText style={{fontSize: 12, fontWeight: 'bold', color: theme.textSecondary}}>
+                  Add Coin
+                </ThemedText>     
+              </ThemeView>
+
+              <ThemeView style={styles.gridItems}>
+                <Image source={deposit} style={{width: 35, height: 35,}} />
+                <ThemedText style={{fontSize: 12, fontWeight: 'bold', color: theme.textSecondary}}>
+                  Buy Perks
+                </ThemedText>     
+              </ThemeView>
+
+              <ThemeView style={styles.gridItems}>
+                <Image source={reader} style={{width: 35, height: 35,}} />
+                <ThemedText style={{fontSize: 12, fontWeight: 'bold', color: theme.textSecondary}}>
+                  Profile
+                </ThemedText>     
+              </ThemeView>
+
+              <ThemeView style={styles.gridItems}>
+                <Image source={podium} style={{width: 35, height: 35,}} />
+                <ThemedText style={{fontSize: 12, fontWeight: 'bold', color: theme.textSecondary}}>
+                  Rank
+                </ThemedText>     
+              </ThemeView>                          
+            </View>
+          </ThemeView>                        
+        </ImageBackground>
+
+        {/* {user && (
+          <ThemeView style={{alignItems: 'flex-end', width:'100%', backgroundColor: '#EBF3FE'}}>
+            <View style={{position:'relative'}}>
+              <ThemedLogo src={Logo2} width={screenWidth * 0.9} height={400}/>            
+            </View>
+          </ThemeView>
         )}  
 
         {!user && (
@@ -115,7 +194,7 @@ const Home = () => {
               </View>
             </ThemeView>
           </>
-        )} 
+        )}  */}
       </ThemeView> 
     </ScrollView>
   )
@@ -127,6 +206,20 @@ const styles = StyleSheet.create({
   container : {
     flex: 1,
     alignItems: 'center',
+    paddingTop: 5,
+  },
+  grid: {
+    flexDirection: 'row',
+    width: '100%',
+    flexWrap: 'wrap',
+    marginTop: 25,
+    rowGap: 10,
+  },
+  gridItems: {
+    width: '25%',
+    alignItems: 'center',
+    marginBottom: 25,
+    rowGap:7
   },
   absolute:{
     position:'absolute',
@@ -143,6 +236,12 @@ const styles = StyleSheet.create({
     right:0,
     bottom:0,
     textAlign: 'center', 
+  },
+  boxMenu: {
+    alignSelf:'center', 
+    width: '95%', 
+    height: '45%', 
+    borderRadius: 30
   },
   title: {
     fontWeight: '600',
@@ -176,5 +275,10 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.button,
     paddingHorizontal: 10,
     boxShadow: '1px 1px 3px'
+  },
+  backgroundImage: {
+    width: '100%',
+    height: 600,
+    opacity: 0.9,
   }
 })
