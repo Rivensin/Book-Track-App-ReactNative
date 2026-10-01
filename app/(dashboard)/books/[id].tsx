@@ -6,6 +6,7 @@ import ThemeView from '../../../components/ThemeView'
 import ThemedCard from '../../../components/ThemeCard'
 import Spacer from '../../../components/Spacer'
 import UseBooks from '../../../hooks/useBooks'
+import UseUser from '../../../hooks/useUser'
 import { useEffect, useState } from 'react'
 import ThemedLoader from '../../../components/ThemedLoader'
 import { Colors } from '../../../constants/Color'
@@ -17,8 +18,8 @@ const BooksDetails = () => {
   const router = useRouter()
   const { fetchBooksById, deleteBook } = UseBooks()
   const [books,setBooks] = useState(null)
-  const colorScheme = useColorScheme()
-  const theme = Colors[colorScheme === 'dark' ? 'dark' : 'light'] 
+  const { themeMode } = UseUser()  
+  const theme = Colors[themeMode]
 
   const handleDelete = async() => {
     try {
@@ -50,7 +51,7 @@ const BooksDetails = () => {
 
   return (
     <ThemeView style={styles.container} safe>
-      <ImageBackground source={colorScheme === 'dark' ? ImageBgDark : ImageBg} resizeMode='contain' style={[StyleSheet.absoluteFill, {opacity: colorScheme === 'light' ? 0.4 : 0.8, backgroundColor: theme.background}]}></ImageBackground>
+      <ImageBackground source={themeMode === 'dark' ? ImageBgDark : ImageBg} resizeMode='contain' style={[StyleSheet.absoluteFill, {opacity: themeMode === 'light' ? 0.4 : 0.8, backgroundColor: theme.background}]}></ImageBackground>
       <ThemedCard style={[styles.card, {backgroundColor: theme.boxBackground}]}>
         <ThemedText style={[styles.title, {color: theme.text}]}>{books?.title}</ThemedText>
         <ThemedText style={{color: theme.textTertiary}}>Written by {books?.author}</ThemedText>

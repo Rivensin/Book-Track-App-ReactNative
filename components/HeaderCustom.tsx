@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Image, Pressable, useColorScheme } from 'react-native'
+import { StyleSheet, Text, View, Image, Pressable } from 'react-native'
 import { Ionicons } from '@expo/vector-icons'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { Colors } from '../constants/Color'
@@ -8,10 +8,9 @@ import logo from '../assets/img/logo.png'
 
 const HeaderCustom = () => {
   const insets = useSafeAreaInsets()
-  const colorScheme = useColorScheme()
-  const theme = Colors[colorScheme === 'dark' ? 'dark' : 'light'] 
   
-  const { user } = UseUser()
+  const { user, themeMode, toggleTheme } = UseUser()
+  const theme = Colors[themeMode]
 
   return (
     <View style={[styles.headerContainer, {backgroundColor: theme.background, paddingTop: insets.top + 10}]}>
@@ -21,20 +20,22 @@ const HeaderCustom = () => {
           style={{ 
             width: 75, 
             height: 75,
-            tintColor: colorScheme === 'dark' ? '#fff' : '#000',}}          
+            tintColor: themeMode === 'dark' ? '#fff' : '#000',}}          
         />
         
-
         <View style={styles.actionContainer}>
+          <Pressable style={({ pressed }) => ({ opacity: pressed ? 0.6 : 1 })} onPress={toggleTheme}>
+            <Ionicons name={themeMode === 'dark' ? "moon" : "sunny-outline"} size={22} color={themeMode === 'dark' ? '#D1D5DB' : '#374151'} />
+          </Pressable>
           <Pressable style={({ pressed }) => ({ opacity: pressed ? 0.6 : 1 })}>
-            <Ionicons name="mail-outline" size={22} color="#374151" />
+            <Ionicons name="mail-outline" size={22} color={themeMode === 'dark' ? '#D1D5DB' : '#374151'} />
             <View style={styles.badge} />
           </Pressable>
           <Pressable style={({ pressed }) => ({ opacity: pressed ? 0.6 : 1 })}>
-            <Ionicons name="settings-outline" size={22} color="#374151" />
+            <Ionicons name="settings-outline" size={22} color={themeMode === 'dark' ? '#D1D5DB' : '#374151'} />
           </Pressable>
           <Pressable style={({ pressed }) => ({ opacity: pressed ? 0.6 : 1 })}>
-            <Ionicons name="log-out-outline" size={22} color="#374151" />            
+            <Ionicons name="log-out-outline" size={22} color={themeMode === 'dark' ? '#D1D5DB' : '#374151'} />            
           </Pressable>
         </View>
       </View>
@@ -82,6 +83,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 9,
   },
+  actionContainer: {
+    flexDirection: 'row',
+    gap: 26,
+    alignItems: 'center',
+  },
+  bottomRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginHorizontal: 4,
+  },
   logo: {
     width: 75,
     height: 75,
@@ -89,12 +101,7 @@ const styles = StyleSheet.create({
   smallLogo: {
     width: 15,
     height: 15,
-  },
-  actionContainer: {
-    flexDirection: 'row',
-    gap: 16,
-    alignItems: 'center',
-  },
+  },  
   badge: {
     position: 'absolute',
     top: -2,
@@ -103,12 +110,6 @@ const styles = StyleSheet.create({
     height: 8,
     borderRadius: 4,
     backgroundColor: '#FF0000',
-  },
-  bottomRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginHorizontal: 4,
   },
   profileSection: {
     flexDirection: 'row',

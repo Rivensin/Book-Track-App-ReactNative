@@ -9,13 +9,12 @@ import ImageBgDark from '../../assets/img/Book lover-pana-dark.png'
 import { Colors } from '../../constants/Color'
 
 const Profile = () => {
-  const { logout, user } = useUser();
-  const colorScheme = useColorScheme()
-  const theme = Colors[colorScheme === 'dark' ? 'dark' : 'light'] 
+  const { logout, user, themeMode } = useUser();  
+  const theme = Colors[themeMode]
 
   return (
     <ThemeView style={styles.container} safe={true}>
-      <ImageBackground source={colorScheme === 'dark' ? ImageBgDark : ImageBg} resizeMode='contain' style={[StyleSheet.absoluteFill, {opacity: colorScheme === 'light' ? 0.4 : 0.8, backgroundColor: theme.background}]}></ImageBackground>
+      <ImageBackground source={themeMode === 'dark' ? ImageBgDark : ImageBg} resizeMode='contain' style={[StyleSheet.absoluteFill, {opacity: themeMode === 'light' ? 0.4 : 0.8, backgroundColor: theme.background}]}></ImageBackground>
 
       <ThemedText title={true} style={[styles.heading, {color: theme.textSecondary}]}>
         {user?.email}

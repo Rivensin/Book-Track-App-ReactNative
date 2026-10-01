@@ -1,11 +1,11 @@
-import { StyleSheet, useColorScheme, TextInput } from 'react-native'
+import { StyleSheet, TextInput } from 'react-native'
 import { Colors } from '../constants/Color'
 import { useState } from 'react'
+import UseUser from '../hooks/useUser'
 
 const ThemedTextInput = ({style,...props}) => {
-
-  const colorScheme = useColorScheme()
-  const theme = Colors[colorScheme === 'dark' ? 'dark' : 'light']  
+  const { themeMode } = UseUser()  
+  const theme = Colors[themeMode]
   const [focused, setFocused] =  useState(false);
 
   return (

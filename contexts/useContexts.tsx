@@ -1,10 +1,13 @@
 import { createContext, useEffect, useState } from "react";
 import { account } from "../lib/appwrite";
 import { ID } from "react-native-appwrite";
+import { useColorScheme } from "react-native";
 
 type UserContextProps = {
   user: any;
   authChecked: boolean;
+  themeMode: 'light' | 'dark';
+  toggleTheme: () => Promise<void>;
   login: (email: string, password: string) => Promise<void>;
   register: (email: string, password: string) => Promise<void>;
   logout: () => Promise<void>;
@@ -15,6 +18,11 @@ export const UserContext = createContext<UserContextProps | null>(null);
 export const UserProvider = ({children} : {children: React.ReactNode}) => {
   const [user, setUser] = useState(null)
   const [authChecked, setAuthChecked] = useState(false)
+  const [themeMode,setThemeMode] = useState<'light' | 'dark'>(useColorScheme() === 'dark' ? 'dark' : 'light')
+
+  async function toggleTheme(){
+    setThemeMode(prevTheme => prevTheme === 'dark' ? 'light' : 'dark')
+  }
 
   async function login(email : string, password: string) {
      try {
@@ -58,7 +66,7 @@ export const UserProvider = ({children} : {children: React.ReactNode}) => {
   }, [])
 
   return (
-    <UserContext.Provider value={{user, authChecked, login, register, logout}}>
+    <UserContext.Provider value={{user, authChecked, themeMode, toggleTheme,login, register, logout}}>
       {children}
     </UserContext.Provider>
   )

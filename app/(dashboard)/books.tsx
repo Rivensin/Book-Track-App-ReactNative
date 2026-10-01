@@ -1,24 +1,24 @@
-import { StyleSheet, FlatList, Pressable, ImageBackground, useColorScheme } from 'react-native'
+import { StyleSheet, FlatList, Pressable, ImageBackground } from 'react-native'
 import ThemedText from '../../components/ThemedText'
 import ThemeView from '../../components/ThemeView'
 import ThemedCard from '../../components/ThemeCard'
 import Spacer from '../../components/Spacer'
 import useBooks from '../../hooks/useBooks'
+import UseUser from '../../hooks/useUser'
 import { Colors } from '../../constants/Color'
 import { useRouter } from 'expo-router/build/exports'
 import ImageBg from '../../assets/img/Bibliophile-pana.png'
 import ImageBgDark from '../../assets/img/Bibliophile-pana-dark.png'
 
 const Books = () => {
+  const { themeMode } = UseUser()  
+  const theme = Colors[themeMode]
   const { books } = useBooks()
   const router = useRouter();
 
-  const colorScheme = useColorScheme()
-  const theme = Colors[colorScheme === 'dark' ? 'dark' : 'light'] 
-
   return (
     <ThemeView style={styles.container} safe={true}>
-      <ImageBackground source={colorScheme === 'dark' ? ImageBgDark : ImageBg} resizeMode='contain' style={[StyleSheet.absoluteFill, {opacity: colorScheme === 'light' ? 0.4 : 0.8, backgroundColor: theme.background}]}></ImageBackground>
+      <ImageBackground source={themeMode === 'dark' ? ImageBgDark : ImageBg} resizeMode='contain' style={[StyleSheet.absoluteFill, {opacity: themeMode === 'light' ? 0.4 : 0.8, backgroundColor: theme.background}]}></ImageBackground>
       <Spacer />
 
       <ThemedText title={true} style={[styles.heading, {color: theme.textSecondary}]}>

@@ -23,11 +23,9 @@ import Icon from '../assets/img/greeting-card.png';
 import Ionicons from '@expo/vector-icons/build/Ionicons'
 
 const Home = () => {
-  const { user } = UseUser()
+  const { user, themeMode } = UseUser()  
+  const theme = Colors[themeMode]
   const router = useRouter()
-
-  const colorScheme = useColorScheme()
-  const theme = Colors[colorScheme === 'dark' ? 'dark' : 'light'] 
 
   const screenWidth = Dimensions.get('window').width
 

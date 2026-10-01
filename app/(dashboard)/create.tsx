@@ -4,6 +4,7 @@ import ThemedText from '../../components/ThemedText'
 import ThemeView from '../../components/ThemeView'
 import Spacer from '../../components/Spacer'
 import useBooks from '../../hooks/useBooks'
+import UseUser from '../../hooks/useUser'
 import { useRouter } from 'expo-router/build/exports'
 import ThemedTextInput from '../../components/ThemedTextInput'
 import ThemedButton from '../../components/ThemedButton'
@@ -18,9 +19,9 @@ const Create = () => {
   const [loading, setLoading] = useState(false)
 
   const { createBook } = useBooks()
+  const { themeMode } = UseUser()  
+  const theme = Colors[themeMode]
   const router = useRouter()
-  const colorScheme = useColorScheme()
-  const theme = Colors[colorScheme === 'dark' ? 'dark' : 'light'] 
 
   const handleSubmit = async() => {
     if(!title.trim() || !author.trim() || !description.trim()) return
@@ -41,7 +42,7 @@ const Create = () => {
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <ThemeView style={styles.container} safe={true}>
-        <ImageBackground source={colorScheme === 'dark' ? ImageBgDark : ImageBg} resizeMode='contain' style={[StyleSheet.absoluteFill, {opacity: colorScheme === 'light' ? 0.4 : 0.8, backgroundColor: theme.background}]}></ImageBackground>
+        <ImageBackground source={themeMode === 'dark' ? ImageBgDark : ImageBg} resizeMode='contain' style={[StyleSheet.absoluteFill, {opacity: themeMode === 'light' ? 0.4 : 0.8, backgroundColor: theme.background}]}></ImageBackground>
         <ThemedText title={true} style={[styles.heading, {color: theme.textSecondary}]}>
           Add a New Book
         </ThemedText>
