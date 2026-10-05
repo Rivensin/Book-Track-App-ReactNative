@@ -1,25 +1,25 @@
 import { StyleSheet, Image, Text, useColorScheme,View, ScrollView, ImageBackground, Dimensions, Pressable } from 'react-native'
 import { Link, useRouter } from 'expo-router'
-import ThemeView from '../components/ThemeView'
-import ThemedLogo from '../components/ThemeLogo'
-import ThemedText from '../components/ThemedText'
-import Login from '../assets/img/login.png'
-import Register from '../assets/img/register.png'
-import rentBook from '../assets/img/rent-book.png'
-import readBook from '../assets/img/reading-book.png'
-import bookList from '../assets/img/book-stack.png'
-import upcomingBook from '../assets/img/clock.png'
-import bookRank from '../assets/img/number-1.png'
-import addCoin from '../assets/img/give-coin.png'
-import deposit from '../assets/img/deposit.png'
-import reader from '../assets/img/reader.png'
-import podium from '../assets/img/podium.png'
-import discussion from '../assets/img/discussion.png'
-import UseUser from '../hooks/useUser'
-import { Colors } from '../constants/Color'
-import Logo1 from '../assets/img/Going offline-pana.png';
-import Logo2 from '../assets/img/Going offline-cuate.png';
-import Icon from '../assets/img/greeting-card.png';
+import ThemeView from '../../components/ThemeView'
+import ThemedLogo from '../../components/ThemeLogo'
+import ThemedText from '../../components/ThemedText'
+import UseUser from '../../hooks/useUser'
+import { Colors } from '../../constants/Color'
+import Login from '../../assets/img/login.png'
+import Register from '../../assets/img/register.png'
+import rentBook from '../../assets/img/rent-book.png'
+import readBook from '../../assets/img/reading-book.png'
+import bookList from '../../assets/img/book-stack.png'
+import upcomingBook from '../../assets/img/clock.png'
+import bookRank from '../../assets/img/number-1.png'
+import addCoin from '../../assets/img/give-coin.png'
+import deposit from '../../assets/img/deposit.png'
+import reader from '../../assets/img/reader.png'
+import podium from '../../assets/img/podium.png'
+import discussion from '../../assets/img/discussion.png'
+import Logo1 from '../../assets/img/Going offline-pana.png';
+import Logo2 from '../../assets/img/Going offline-cuate.png';
+import Icon from '../../assets/img/greeting-card.png';
 import Ionicons from '@expo/vector-icons/build/Ionicons'
 
 const Home = () => {
@@ -32,8 +32,13 @@ const Home = () => {
   return (
     <ScrollView contentContainerStyle={{flexGrow: 1}} style={{backgroundColor: theme.background}}>
       <ThemeView style={[styles.container]} safe>
-        <ImageBackground source={Logo1} style={styles.backgroundImage} imageStyle={{ opacity: 0.4 }}>
-          <ThemeView style={[styles.boxMenu, {backgroundColor: theme.menuBackground}]}>
+        <View style={styles.backgroundImage}>
+          <Image 
+            source={Logo1}
+            style={styles.absoluteImage}
+          />
+
+          <ThemeView style={[styles.boxMenu, {backgroundColor: theme.menuBackground, height: '40%'}]}>
             <View style={{flexDirection: 'row', alignItems: 'center', marginLeft: 20, marginTop: 13, justifyContent: 'space-between'}}>
               <ThemedText style={{fontSize: 18, fontWeight: 'bold', color: theme.text}}>
                 Book
@@ -100,7 +105,7 @@ const Home = () => {
             </View>
           </ThemeView>
 
-          <ThemeView style={[styles.boxMenu, {backgroundColor: theme.menuBackground, marginTop: 20}]}>
+          <ThemeView style={[styles.boxMenu, {backgroundColor: theme.menuBackground, marginTop: 20, height: '25%',}]}>
             <View style={{flexDirection: 'row', alignItems: 'center', marginLeft: 20, marginTop: 13, justifyContent: 'space-between'}}>
               <ThemedText style={{fontSize: 18, fontWeight: 'bold', color: theme.text}}>
                 Membership
@@ -145,7 +150,7 @@ const Home = () => {
               </ThemeView>                          
             </View>
           </ThemeView>                        
-        </ImageBackground>
+        </View>
 
         {/* {user && (
           <ThemeView style={{alignItems: 'flex-end', width:'100%', backgroundColor: '#EBF3FE'}}>
@@ -219,6 +224,22 @@ const styles = StyleSheet.create({
     marginBottom: 25,
     rowGap:7
   },
+  backgroundImage: {
+    width: '100%',
+    height: 600,
+    opacity: 0.9,            
+  },
+  absoluteImage: {
+    position: 'absolute',
+    top: 0,
+    left: '50%',
+    width: '100%',
+    height: '100%',
+    transform: [
+      {translateX: '-50%'}, 
+      {scale:0.95}
+    ],
+  },
   absolute:{
     position:'absolute',
     top: 0,
@@ -237,8 +258,7 @@ const styles = StyleSheet.create({
   },
   boxMenu: {
     alignSelf:'center', 
-    width: '95%', 
-    height: '45%', 
+    width: '95%',      
     borderRadius: 30
   },
   title: {
@@ -274,9 +294,4 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     boxShadow: '1px 1px 3px'
   },
-  backgroundImage: {
-    width: '100%',
-    height: 600,
-    opacity: 0.9,
-  }
 })

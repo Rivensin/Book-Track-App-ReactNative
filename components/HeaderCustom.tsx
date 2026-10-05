@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Image, Pressable } from 'react-native'
+import { StyleSheet, Text, View, Image, Pressable, ImageBackground } from 'react-native'
 import { Ionicons } from '@expo/vector-icons'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { Colors } from '../constants/Color'
@@ -62,7 +62,7 @@ const HeaderCustom = () => {
           </View>
         </View>
 
-        <View style={styles.pointBadge}>
+        <View style={[styles.pointBadge, {backgroundColor: themeMode === 'dark' ? '#fff' : '#FFFF2E'}]}>
           <Text style={styles.pointText}>8305</Text>
         </View>
       </View>
@@ -130,8 +130,7 @@ const styles = StyleSheet.create({
   subText: {
     fontSize: 12,
   },
-  pointBadge: {
-    backgroundColor: '#FFFF2E',
+  pointBadge: {    
     paddingHorizontal: 12,
     paddingVertical: 6,
     borderRadius: 20,

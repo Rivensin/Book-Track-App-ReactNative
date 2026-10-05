@@ -2,13 +2,11 @@ import { StyleSheet, useColorScheme, Image } from 'react-native'
 import { Tabs } from 'expo-router'
 import { StatusBar } from 'expo-status-bar'
 import { Colors } from '../../constants/Color'
-import BookActive from '../../assets/img/book-icon-active.png'
-import BookIdle from '../../assets/img/book-icon-idle.png'
-import ProfileActive from '../../assets/img/profile-icon-active.png'
-import ProfileIdle from '../../assets/img/profile-icon-idle.png'
-import CreateActive from '../../assets/img/create-icon-active.png'
-import CreateIdle from '../../assets/img/create-icon-idle.png'
 import UserOnly from '../../components/auth/UserOnly'
+import MemberActive from '../../assets/img/membership-active.png'
+import MemberIdle from '../../assets/img/membership.png'
+import PerksActive from '../../assets/img/perks-active.png'
+import PerksIdle from '../../assets/img/perks.png'
 
 const RootLayout = () => {
   const colorScheme = useColorScheme()
@@ -36,26 +34,12 @@ const RootLayout = () => {
         }}> 
 
         <Tabs.Screen 
-          name='profile' 
+          name='membership' 
           options={{
-            title: 'Home',
+            title: 'Membership',
             tabBarIcon: ({focused, size}) => (
               <Image 
-                source={focused ? ProfileActive : ProfileIdle}
-                style={{width:size, height: size}}              
-                resizeMode= 'contain' 
-              />
-            )
-          }} 
-        />
-
-        <Tabs.Screen 
-          name='books' 
-          options={{
-            title: 'Books',
-            tabBarIcon: ({focused, size}) => (
-              <Image 
-                source={focused ? BookActive : BookIdle}
+                source={focused ? MemberActive : MemberIdle}
                 style={{width:size, height: size}}
                 resizeMode= 'contain' 
               />
@@ -64,23 +48,18 @@ const RootLayout = () => {
         />
 
         <Tabs.Screen 
-          name='create' 
+          name='perks' 
           options={{
-            title: 'Create',
+            title: 'Perks',
             tabBarIcon: ({focused, size}) => (
               <Image 
-                source={focused ? CreateActive : CreateIdle}
+                source={focused ? PerksActive : PerksIdle}
                 style={{width:size, height: size}}
                 resizeMode= 'contain' 
               />
             )
           }} 
-        />
-
-        <Tabs.Screen 
-          name='books/[id]' 
-          options={{href:null}} 
-        />
+        />        
       </Tabs>
     </UserOnly>
   )

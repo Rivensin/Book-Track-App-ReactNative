@@ -1,18 +1,18 @@
-import { StyleSheet, useColorScheme, Image } from 'react-native'
-import { Tabs } from 'expo-router'
+import { StyleSheet, Pressable, Image } from 'react-native'
+import { Tabs, useRouter } from 'expo-router'
 import { StatusBar } from 'expo-status-bar'
 import { Colors } from '../../constants/Color'
 import BookActive from '../../assets/img/book-icon-active.png'
 import BookIdle from '../../assets/img/book-icon-idle.png'
-import ProfileActive from '../../assets/img/profile-icon-active.png'
-import ProfileIdle from '../../assets/img/profile-icon-idle.png'
-import CreateActive from '../../assets/img/create-icon-active.png'
-import CreateIdle from '../../assets/img/create-icon-idle.png'
+import MemberActive from '../../assets/img/membership-active.png'
+import MemberIdle from '../../assets/img/membership.png'
 import UserOnly from '../../components/auth/UserOnly'
+import UseUser from '../../hooks/useUser'
 
 const RootLayout = () => {
-  const colorScheme = useColorScheme()
-  const theme = Colors[colorScheme === 'dark' ? 'dark' : 'light'] 
+  const { themeMode } = UseUser()  
+  const theme = Colors[themeMode]
+  const router = useRouter()
   
   return (
     <UserOnly>
@@ -35,10 +35,10 @@ const RootLayout = () => {
           tabBarInactiveTintColor : theme.iconColor
         }}> 
 
-        <Tabs.Screen 
+        {/* <Tabs.Screen 
           name='profile' 
           options={{
-            title: 'Home',
+            title: 'Profile',
             tabBarIcon: ({focused, size}) => (
               <Image 
                 source={focused ? ProfileActive : ProfileIdle}
@@ -47,6 +47,13 @@ const RootLayout = () => {
               />
             )
           }} 
+        /> */}
+
+        <Tabs.Screen
+          name="index"
+          options={{
+            href: null,
+          }}
         />
 
         <Tabs.Screen 
@@ -54,32 +61,32 @@ const RootLayout = () => {
           options={{
             title: 'Books',
             tabBarIcon: ({focused, size}) => (
-              <Image 
-                source={focused ? BookActive : BookIdle}
-                style={{width:size, height: size}}
-                resizeMode= 'contain' 
-              />
-            )
+              <Pressable onPress={() => router.push('/(dashboard)/books')}>
+                <Image 
+                  source={focused ? BookActive : BookIdle}
+                  style={{width:size, height: size}}
+                  resizeMode= 'contain' 
+                />
+              </Pressable>
+            ),            
           }} 
         />
 
         <Tabs.Screen 
-          name='create' 
+          name='membership' 
           options={{
-            title: 'Create',
+            title: 'Membership',
             tabBarIcon: ({focused, size}) => (
+              <Pressable 
+                onPress={() => router.push('/(membership)/membership')}>
               <Image 
-                source={focused ? CreateActive : CreateIdle}
+                source={focused ? MemberActive : MemberIdle}
                 style={{width:size, height: size}}
                 resizeMode= 'contain' 
               />
+              </Pressable>
             )
           }} 
-        />
-
-        <Tabs.Screen 
-          name='books/[id]' 
-          options={{href:null}} 
         />
       </Tabs>
     </UserOnly>
