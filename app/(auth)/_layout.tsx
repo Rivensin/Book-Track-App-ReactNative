@@ -1,14 +1,25 @@
 import { StyleSheet } from 'react-native'
 import { Stack } from 'expo-router'
-import { StatusBar } from 'expo-status-bar'
 import GuestOnly from '../../components/auth/GuestOnly'
+import { Colors } from '../../constants/Color'
+import UseUser from '../../hooks/useUser'
 
 const AuthLayout = () => {  
+  const { themeMode } = UseUser()
+  const theme = Colors[themeMode]
+
   return (
     <GuestOnly>
       {/* <StatusBar style='auto'/> */}
       <Stack screenOptions={{
-        animation: 'none',
+        animation: 'none',      
+        headerStyle: {
+          backgroundColor: theme.background,
+        },
+        headerTintColor: theme.text,        
+        contentStyle: {
+          backgroundColor: theme.background,
+        },        
       }}>
 
         <Stack.Screen name='login' options={{title:'Login'}}></Stack.Screen>

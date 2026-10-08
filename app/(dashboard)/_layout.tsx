@@ -9,10 +9,11 @@ import ProfileIdle from '../../assets/img/profile-icon-idle.png'
 import CreateActive from '../../assets/img/create-icon-active.png'
 import CreateIdle from '../../assets/img/create-icon-idle.png'
 import UserOnly from '../../components/auth/UserOnly'
+import UseUser from '../../hooks/useUser'
 
 const RootLayout = () => {
-  const colorScheme = useColorScheme()
-  const theme = Colors[colorScheme === 'dark' ? 'dark' : 'light'] 
+  const {themeMode} = UseUser()
+  const theme = Colors[themeMode] 
   
   return (
     <UserOnly>

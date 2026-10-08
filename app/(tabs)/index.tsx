@@ -1,12 +1,9 @@
 import { StyleSheet, Image, Text, useColorScheme,View, ScrollView, ImageBackground, Dimensions, Pressable } from 'react-native'
-import { Link, useRouter } from 'expo-router'
+import { useRouter } from 'expo-router'
 import ThemeView from '../../components/ThemeView'
-import ThemedLogo from '../../components/ThemeLogo'
 import ThemedText from '../../components/ThemedText'
 import UseUser from '../../hooks/useUser'
 import { Colors } from '../../constants/Color'
-import Login from '../../assets/img/login.png'
-import Register from '../../assets/img/register.png'
 import rentBook from '../../assets/img/rent-book.png'
 import readBook from '../../assets/img/reading-book.png'
 import bookList from '../../assets/img/book-stack.png'
@@ -18,9 +15,9 @@ import reader from '../../assets/img/reader.png'
 import podium from '../../assets/img/podium.png'
 import discussion from '../../assets/img/discussion.png'
 import Logo1 from '../../assets/img/Going offline-pana.png';
-import Logo2 from '../../assets/img/Going offline-cuate.png';
-import Icon from '../../assets/img/greeting-card.png';
 import Ionicons from '@expo/vector-icons/build/Ionicons'
+import profileIconIdle from '../../assets/img/profile-icon-idle.png'
+import bronzeMedal from '../../assets/img/bronze-medal.png'
 
 const Home = () => {
   const { user, themeMode } = UseUser()  
@@ -38,7 +35,34 @@ const Home = () => {
             style={styles.absoluteImage}
           />
 
-          <ThemeView style={[styles.boxMenu, {backgroundColor: theme.menuBackground, height: '40%'}]}>
+          <ThemeView style={[styles.bottomRow, {}]}>
+            <View style={styles.profileSection}>   
+              <Image
+                source={profileIconIdle}
+                style={styles.avatar}
+                resizeMode='contain' />
+
+              <View>
+                <Text style={[styles.greetingText, {color: theme.text}]}>Hi, {user?.email}</Text>
+                
+                <View style={{flexDirection: 'row', alignItems: 'center', gap: 4}}>
+                  <Image
+                    source={bronzeMedal}
+                    style={styles.smallLogo}
+                    resizeMode='contain' 
+                  /> 
+
+                  <Text style={[styles.subText, {color: theme.textTertiary}]}>Basic Membership</Text>               
+                </View>              
+              </View>
+            </View>
+
+            <View style={[styles.pointBadge, {backgroundColor: themeMode === 'dark' ? '#fff' : '#FFFF2E'}]}>
+              <Text style={styles.pointText}>8305</Text>
+            </View>
+          </ThemeView>
+
+          <ThemeView style={[styles.boxMenu, {backgroundColor: theme.menuBackground, height: '40%', marginTop: 20}]}>
             <View style={{flexDirection: 'row', alignItems: 'center', marginLeft: 20, marginTop: 13, justifyContent: 'space-between'}}>
               <ThemedText style={{fontSize: 18, fontWeight: 'bold', color: theme.text}}>
                 Book
@@ -261,6 +285,18 @@ const styles = StyleSheet.create({
     width: '95%',      
     borderRadius: 30
   },
+  bottomRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginHorizontal: 4,
+    width: '95%',      
+    alignSelf:'center', 
+    backgroundColor: '#fff', 
+    borderRadius: 20,
+    paddingVertical: 20, 
+    paddingHorizontal: 15
+  },
   title: {
     fontWeight: '600',
     fontSize: 18,
@@ -293,5 +329,38 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.button,
     paddingHorizontal: 10,
     boxShadow: '1px 1px 3px'
+  },  
+  profileSection: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 15,
+  },
+  avatar: {
+    width: 42,
+    height: 42,
+    borderRadius: 21,
+    borderWidth: 1,
+    borderColor: '#475569',
+  },
+  greetingText: {
+    fontSize: 13,
+    fontWeight: 'bold',
+  },
+  smallLogo: {
+    width: 15,
+    height: 15,
+  },
+  subText: {
+    fontSize: 12,
+  },
+  pointBadge: {    
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 10,
+  },
+  pointText: {
+    color: '#0F172A',
+    fontWeight: 'bold',
+    fontSize: 13,
   },
 })

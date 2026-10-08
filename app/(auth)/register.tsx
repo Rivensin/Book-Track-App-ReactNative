@@ -1,4 +1,4 @@
-import { Keyboard, StyleSheet, Text, TouchableWithoutFeedback, ImageBackground, useColorScheme } from 'react-native'
+import { Keyboard, StyleSheet, Text, TouchableWithoutFeedback, ImageBackground, useColorScheme, View } from 'react-native'
 import { Link } from 'expo-router'
 import { Colors } from '../../constants/Color'
 import { useState } from 'react'
@@ -9,15 +9,15 @@ import ThemedButton from '../../components/ThemedButton'
 import ThemedTextInput from '../../components/ThemedTextInput'
 import useUser from '../../hooks/useUser'
 import ImageBg from '../../assets/img/Going offline-amico.png'
+import ImageBgDark from '../../assets/img/Going offline-amico-dark.png'
 
 const Register = () => {
   const [email,setEmail] = useState('')
   const [password,setPassword] = useState('')
   const [error,setError] = useState<string | null>(null)
 
-  const { register } = useUser()
-  
-  const colorScheme = useColorScheme()
+  const { register, themeMode } = useUser()
+  const theme = Colors[themeMode]
   
   const handleSubmit = async() => {
     setError(null)
@@ -34,10 +34,10 @@ const Register = () => {
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <ThemedView style={styles.container} safe>
-        <ImageBackground source={ImageBg} resizeMode='contain' style={[StyleSheet.absoluteFillObject, {opacity: colorScheme === 'light' ? 0.4 : 0.2, top:-50, bottom:50}]}></ImageBackground>
+        <ImageBackground source={themeMode === 'dark' ? ImageBgDark : ImageBg} resizeMode='contain' style={[StyleSheet.absoluteFill, {opacity: 0.4, top:-50, bottom:50}]}></ImageBackground>
         <Spacer />
 
-        <ThemedText title={true} style={[styles.title, {marginBottom: 20}]}>
+        <ThemedText title={true} style={[styles.title, {color: theme.textSecondary}]}>
           Register a new account
         </ThemedText>
 
@@ -59,10 +59,12 @@ const Register = () => {
           secureTextEntry
         />
 
-        <ThemedButton onPress={handleSubmit}>
-          <Text style={{color: '#f2f2f2'}}>
-            Register
-          </Text>
+        <ThemedButton onPress={handleSubmit} style={{width:'80%'}}>
+          <View style={{alignItems: 'center', justifyContent: 'center'}} >
+            <Text style={{color: '#f2f2f2'}}>
+              Register
+            </Text>
+          </View>
         </ThemedButton>
 
         <Spacer />
@@ -73,10 +75,8 @@ const Register = () => {
           </Text>
         )}
 
-        <Spacer height={100}/>
-
         <Link href="/login">
-          <ThemedText style={{textAlign: 'center', textDecorationLine: 'underline'}}>
+          <ThemedText style={{textAlign: 'center', textDecorationLine: 'underline', color: theme.textSecondary}}>
             Already have an account? Login
           </ThemedText>
         </Link>
@@ -96,6 +96,7 @@ const styles = StyleSheet.create({
   title: {
     fontWeight: 'bold',
     fontSize: 18,
+    marginBottom: 20
   },
   btn: {
     backgroundColor: Colors.primary,

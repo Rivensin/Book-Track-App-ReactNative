@@ -60,10 +60,10 @@ const RootLayout = () => {
           name='books' 
           options={{
             title: 'Books',
-            tabBarIcon: ({focused, size}) => (
+            tabBarIcon: ({size}) => (
               <Pressable onPress={() => router.push('/(dashboard)/books')}>
                 <Image 
-                  source={focused ? BookActive : BookIdle}
+                  source={BookActive}
                   style={{width:size, height: size}}
                   resizeMode= 'contain' 
                 />
@@ -76,11 +76,11 @@ const RootLayout = () => {
           name='membership' 
           options={{
             title: 'Membership',
-            tabBarIcon: ({focused, size}) => (
+            tabBarIcon: ({size}) => (
               <Pressable 
                 onPress={() => router.push('/(membership)/membership')}>
               <Image 
-                source={focused ? MemberActive : MemberIdle}
+                source={MemberActive}
                 style={{width:size, height: size}}
                 resizeMode= 'contain' 
               />
