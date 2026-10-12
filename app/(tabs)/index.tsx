@@ -32,10 +32,10 @@ const Home = () => {
         <View style={styles.backgroundImage}>
           <Image 
             source={Logo1}
-            style={styles.absoluteImage}
+            style={[styles.absoluteImage]}
           />
 
-          <ThemeView style={[styles.bottomRow, {}]}>
+          <ThemeView style={[styles.bottomRow, {backgroundColor: theme.menuBackground}]}>
             <View style={styles.profileSection}>   
               <Image
                 source={profileIconIdle}
@@ -291,8 +291,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginHorizontal: 4,
     width: '95%',      
-    alignSelf:'center', 
-    backgroundColor: '#fff', 
+    alignSelf:'center',     
     borderRadius: 20,
     paddingVertical: 20, 
     paddingHorizontal: 15
