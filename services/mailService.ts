@@ -9,6 +9,7 @@ export type MailProps = Models.Document & {
   date: string
   sender: string
   desc: string  
+  hasRead: boolean
 }
 
 export async function getMails(userId: string) : Promise<MailProps[]>{
@@ -27,6 +28,42 @@ export async function getMails(userId: string) : Promise<MailProps[]>{
     const message = error instanceof Error ? error.message : 'Unknown Error'
 
     throw new Error(message)
+  }
+}
+
+export async function getMailsDetail(id: string) : Promise<MailProps>{
+  try {
+    const response = await databases.getDocument(
+      DATABASE_ID,
+      COLLECTION_ID,
+      id
+    )
+
+    return response
+  
+  } catch (error : unknown){
+    const message = error instanceof Error ? error.message : 'Unknown Error'
+
+    throw new Error(message)
+  }
+}
+
+export async function markMailAsRead(id: string): Promise<void> {
+  try {
+    const response = await databases.updateDocument<MailProps>(
+      DATABASE_ID,
+      COLLECTION_ID,
+      id,
+      {
+        hasRead: true,
+      }
+    );
+
+  } catch (error: unknown) {
+    const message =
+      error instanceof Error ? error.message : 'Unknown Error';
+
+    throw new Error(message);
   }
 }
 

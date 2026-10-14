@@ -6,7 +6,7 @@ import ThemeMail from '../../components/ThemeMail'
 import ImageBg from '../../assets/img/Mail-pana.png'
 import ImageBgDark from '../../assets/img/Mail-pana-dark.png'
 import { useEffect, useState } from 'react'
-import { getMails } from '../../services/mailService'
+import { getMails, markMailAsRead } from '../../services/mailService'
 import { MailProps } from '../../services/mailService'
 import { useRouter } from 'expo-router'
 
@@ -30,10 +30,7 @@ const Mail = () => {
       }
     }  
     
-    fetchMails()
-
-    console.log(mail)
- 
+    fetchMails() 
   },[user?.$id])
 
   return (
@@ -44,12 +41,24 @@ const Mail = () => {
         data={mail}
         keyExtractor={(item) => item.$id}        
         renderItem={({ item }) => (
-          <Pressable onPress={() => router.push(`/books/${item.$id}`)}>
+          <Pressable onPress={() => {
+            markMailAsRead(item.$id)
+            
+            setMail(prev => 
+              prev.map(mail => 
+                mail.$id === item.$id ? {...mail, hasRead: true} : mail
+              )
+            )
+
+            router.push(`/mail/${item.$id}`)           
+          }}
+          >
             <ThemeMail 
               title={item.title}
               date={item.date}
               sender={item.sender}
               description={item.desc}
+              hasRead={item.hasRead}
             />
           </Pressable>
         )}
