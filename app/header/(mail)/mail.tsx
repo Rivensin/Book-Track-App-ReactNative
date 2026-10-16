@@ -1,13 +1,13 @@
 import { FlatList, ImageBackground, Pressable, StyleSheet, Text } from 'react-native'
-import ThemedView from '../../components/ThemeView'
-import UseUser from '../../hooks/useUser'
-import { Colors } from '../../constants/Color'
-import ThemeMail from '../../components/ThemeMail'
-import ImageBg from '../../assets/img/Mail-pana.png'
-import ImageBgDark from '../../assets/img/Mail-pana-dark.png'
+import ThemedView from '../../../components/ThemeView'
+import UseUser from '../../../hooks/useUser'
+import { Colors } from '../../../constants/Color'
+import ThemeMail from '../../../components/ThemeMail'
+import ImageBg from '../../../assets/img/Mail-pana.png'
+import ImageBgDark from '../../../assets/img/Mail-pana-dark.png'
 import { useEffect, useState } from 'react'
-import { getMails, markMailAsRead } from '../../services/mailService'
-import { MailProps } from '../../services/mailService'
+import { getMails, markMailAsRead } from '../../../services/mailService'
+import { MailProps } from '../../../services/mailService'
 import { useRouter } from 'expo-router'
 
 const Mail = () => {
@@ -30,7 +30,8 @@ const Mail = () => {
       }
     }  
     
-    fetchMails() 
+    fetchMails()
+    
   },[user?.$id])
 
   return (
@@ -50,7 +51,7 @@ const Mail = () => {
               )
             )
 
-            router.push(`/mail/${item.$id}`)           
+            router.push(`header/mail/${item.$id}`)           
           }}
           >
             <ThemeMail 

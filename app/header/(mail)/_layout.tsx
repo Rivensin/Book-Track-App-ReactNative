@@ -1,10 +1,10 @@
 import { StyleSheet } from 'react-native'
 import { Stack } from 'expo-router'
-import UserOnly from '../../components/auth/UserOnly'
-import { Colors } from '../../constants/Color'
-import UseUser from '../../hooks/useUser'
+import UserOnly from '../../../components/auth/UserOnly'
+import { Colors } from '../../../constants/Color'
+import UseUser from '../../../hooks/useUser'
 import { StatusBar } from 'expo-status-bar'
-import HeaderCustom from '../../components/HeaderCustom'
+import HeaderCustom from '../../../components/HeaderCustom'
 
 const AuthLayout = () => {  
   const { themeMode } = UseUser()
@@ -25,7 +25,13 @@ const AuthLayout = () => {
           }}             
         />
 
-        <Stack.Screen name='mail/[id]' options={{headerShown: false}} />         
+        <Stack.Screen 
+          name='mail/[id]' 
+          options={{
+            headerTitle: '',
+            header: () => <HeaderCustom />,              
+          }}   
+        />         
       </Stack>
     </UserOnly>
   )

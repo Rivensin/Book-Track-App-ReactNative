@@ -31,11 +31,11 @@ const HeaderCustom = () => {
           <Pressable style={({ pressed }) => ({ opacity: pressed ? 0.6 : 1 })} onPress={toggleTheme}>
             <Ionicons name={themeMode === 'dark' ? "moon" : "sunny-outline"} size={22} color={themeMode === 'dark' ? '#D1D5DB' : '#374151'} />
           </Pressable>
-          <Pressable onPress={() => router.push('/mail')} style={({ pressed }) => ({ opacity: pressed ? 0.6 : 1 })}>
+          <Pressable onPress={() => router.push('header/mail')} style={({ pressed }) => ({ opacity: pressed ? 0.6 : 1 })}>
             <Ionicons name="mail-outline" size={22} color={themeMode === 'dark' ? '#D1D5DB' : '#374151'} />
             <View style={styles.badge} />
           </Pressable>
-          <Pressable style={({ pressed }) => ({ opacity: pressed ? 0.6 : 1 })}>
+          <Pressable onPress={() => router.push('header/setting')} style={({ pressed }) => ({ opacity: pressed ? 0.6 : 1 })}>
             <Ionicons name="settings-outline" size={22} color={themeMode === 'dark' ? '#D1D5DB' : '#374151'} />
           </Pressable>
           <Pressable onPress={logout} style={({ pressed }) => ({ opacity: pressed ? 0.6 : 1 })}>

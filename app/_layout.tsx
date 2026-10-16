@@ -33,7 +33,8 @@ const RootLayout = () => {
           <Stack.Screen name='(auth)' options={{headerShown: false}} />
           <Stack.Screen name='(dashboard)' options={{headerShown: false}} />
           <Stack.Screen name='(membership)' options={{headerShown: false}} />
-          <Stack.Screen name='(mail)' options={{headerShown: false}} />
+          <Stack.Screen name='header/(mail)' options={{headerShown: false}} />
+          <Stack.Screen name='header/(setting)' options={{headerShown: false}} />
         </Stack>
       </BooksProvider>
     </UserProvider>
