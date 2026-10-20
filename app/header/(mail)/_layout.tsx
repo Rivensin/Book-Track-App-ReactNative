@@ -14,24 +14,13 @@ const AuthLayout = () => {
     <UserOnly>
       <StatusBar style='auto'/>
       <Stack screenOptions={{
-        headerShown:true,                   
+        headerShown:true,
+        header: () => <HeaderCustom />                   
       }}>
 
-        <Stack.Screen 
-          name='mail' 
-          options={{
-            headerTitle: '',
-            header: () => <HeaderCustom />,              
-          }}             
-        />
+        <Stack.Screen name='mail' />
 
-        <Stack.Screen 
-          name='mail/[id]' 
-          options={{
-            headerTitle: '',
-            header: () => <HeaderCustom />,              
-          }}   
-        />         
+        <Stack.Screen name='mail/[id]' />         
       </Stack>
     </UserOnly>
   )

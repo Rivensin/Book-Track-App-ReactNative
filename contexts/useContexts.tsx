@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState } from "react";
-import { account } from "../lib/appwrite";
+import { account, databases } from "../lib/appwrite";
 import { ID } from "react-native-appwrite";
 import { useColorScheme } from "react-native";
 
@@ -9,9 +9,12 @@ type UserContextProps = {
   themeMode: 'light' | 'dark';
   toggleTheme: () => Promise<void>;
   login: (email: string, password: string) => Promise<void>;
-  register: (email: string, password: string) => Promise<void>;
+  register: (name:string, email: string, password: string) => Promise<void>;
   logout: () => Promise<void>;
 }
+
+const DATABASE_ID = '696a09b5001ba11db07e'
+const COLLECTION_ID = '6ad7af4e0004a9f50c86'
 
 export const UserContext = createContext<UserContextProps | null>(null);
 
@@ -35,11 +38,24 @@ export const UserProvider = ({children} : {children: React.ReactNode}) => {
     }
   }
 
-  async function register(email: string, password: string) {
+  async function register(name: string, email: string, password: string) {
     try {
-      await account.create(ID.unique(),email,password)
+      const user = await account.create(ID.unique(),email,password)
+
       await login(email,password)
+
+      await databases.createDocument(
+        DATABASE_ID,
+        COLLECTION_ID,
+        user.$id,
+        {
+          name,
+          coin: 0
+        }
+      )      
     } catch (error : unknown) {
+      console.error('Register error:', error);
+
       const message = error instanceof Error ? error.message : 'Unknown Error' 
       throw new Error(message)
     }

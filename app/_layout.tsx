@@ -4,7 +4,6 @@ import { Colors } from '../constants/Color'
 import { UserProvider } from '../contexts/useContexts'
 import { BooksProvider } from '../contexts/bookContexts'
 import HeaderCustom from '../components/HeaderCustom'
-import UseUser from '../hooks/useUser'
 
 const RootLayout = () => {
   const colorScheme = useColorScheme()
@@ -26,7 +25,6 @@ const RootLayout = () => {
           <Stack.Screen 
             name='(tabs)' 
             options={{
-              headerTitle: '',
               header: () => <HeaderCustom />,              
             }}             
           />                   

@@ -10,6 +10,7 @@ import CreateActive from '../../assets/img/create-icon-active.png'
 import CreateIdle from '../../assets/img/create-icon-idle.png'
 import UserOnly from '../../components/auth/UserOnly'
 import UseUser from '../../hooks/useUser'
+import HeaderCustom from '../../components/HeaderCustom'
 
 const RootLayout = () => {
   const {themeMode} = UseUser()
@@ -39,7 +40,9 @@ const RootLayout = () => {
         <Tabs.Screen 
           name='profile' 
           options={{
-            title: 'Home',
+            headerShown: true,
+            header: () => <HeaderCustom />,
+            title: 'Home',             
             tabBarIcon: ({focused, size}) => (
               <Image 
                 source={focused ? ProfileActive : ProfileIdle}

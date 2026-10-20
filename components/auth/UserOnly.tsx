@@ -1,5 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React, { use, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import useUser from '../../hooks/useUser';
 import { useRouter } from 'expo-router';
 import ThemedLoader from '../ThemedLoader';

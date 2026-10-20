@@ -35,32 +35,34 @@ const Home = () => {
             style={[styles.absoluteImage]}
           />
 
-          <ThemeView style={[styles.bottomRow, {backgroundColor: theme.menuBackground}]}>
-            <View style={styles.profileSection}>   
-              <Image
-                source={profileIconIdle}
-                style={styles.avatar}
-                resizeMode='contain' />
+          <Pressable onPress={() => router.push('/profile')}>
+            <ThemeView style={[styles.bottomRow, {backgroundColor: theme.menuBackground}]}>
+              <View style={styles.profileSection}>   
+                <Image
+                  source={profileIconIdle}
+                  style={styles.avatar}
+                  resizeMode='contain' />
 
-              <View>
-                <Text style={[styles.greetingText, {color: theme.text}]}>Hi, {user?.email}</Text>
-                
-                <View style={{flexDirection: 'row', alignItems: 'center', gap: 4}}>
-                  <Image
-                    source={bronzeMedal}
-                    style={styles.smallLogo}
-                    resizeMode='contain' 
-                  /> 
+                <View>
+                  <Text style={[styles.greetingText, {color: theme.text}]}>Hi, {user?.email}</Text>
+                  
+                  <View style={{flexDirection: 'row', alignItems: 'center', gap: 4}}>
+                    <Image
+                      source={bronzeMedal}
+                      style={styles.smallLogo}
+                      resizeMode='contain' 
+                    /> 
 
-                  <Text style={[styles.subText, {color: theme.textTertiary}]}>Basic Membership</Text>               
-                </View>              
+                    <Text style={[styles.subText, {color: theme.textTertiary}]}>Basic Membership</Text>               
+                  </View>              
+                </View>
               </View>
-            </View>
 
-            <View style={[styles.pointBadge, {backgroundColor: themeMode === 'dark' ? '#fff' : '#FFFF2E'}]}>
-              <Text style={styles.pointText}>8305</Text>
-            </View>
-          </ThemeView>
+              <View style={[styles.pointBadge, {backgroundColor: themeMode === 'dark' ? '#fff' : '#FFFF2E'}]}>
+                <Text style={styles.pointText}>8305</Text>
+              </View>
+            </ThemeView>
+          </Pressable>
 
           <ThemeView style={[styles.boxMenu, {backgroundColor: theme.menuBackground, height: '40%', marginTop: 20}]}>
             <View style={{flexDirection: 'row', alignItems: 'center', marginLeft: 20, marginTop: 13, justifyContent: 'space-between'}}>

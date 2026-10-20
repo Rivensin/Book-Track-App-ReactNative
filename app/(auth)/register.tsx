@@ -12,6 +12,7 @@ import ImageBg from '../../assets/img/Going offline-amico.png'
 import ImageBgDark from '../../assets/img/Going offline-amico-dark.png'
 
 const Register = () => {
+  const [name,setName] = useState('')
   const [email,setEmail] = useState('')
   const [password,setPassword] = useState('')
   const [error,setError] = useState<string | null>(null)
@@ -22,7 +23,7 @@ const Register = () => {
   const handleSubmit = async() => {
     setError(null)
     try {
-      await register(email, password)
+      await register(name, email, password)
       setEmail('')
       setPassword('')
     } catch (error) {
@@ -40,6 +41,14 @@ const Register = () => {
         <ThemedText title={true} style={[styles.title, {color: theme.textSecondary}]}>
           Register a new account
         </ThemedText>
+
+        <ThemedTextInput 
+          placeholder='Name'
+          placeholderTextColor= '#a9a9a9'          
+          style={{width: '80%', marginBottom: 20}}
+          onChangeText= {setName}
+          value={name} 
+        />
 
         <ThemedTextInput 
           placeholder='Email'

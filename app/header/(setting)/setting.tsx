@@ -1,11 +1,10 @@
-import { FlatList, ImageBackground, Pressable, StyleSheet, Text } from 'react-native'
-import ThemedView from '../../../components/ThemeView'
+import { ImageBackground, StyleSheet } from 'react-native'
 import UseUser from '../../../hooks/useUser'
 import { Colors } from '../../../constants/Color'
 import ThemeView from '../../../components/ThemeView'
 import ThemedText from '../../../components/ThemedText'
-import ImageBg from '../../../assets/img/Mail-pana.png'
-import ImageBgDark from '../../../assets/img/Mail-pana-dark.png'
+import ImageBg from '../../../assets/img/Settings-amico.png'
+import ImageBgDark from '../../../assets/img/Settings-amico-dark.png'
 import { useEffect, useState } from 'react'
 import { getMails } from '../../../services/mailService'
 import { MailProps } from '../../../services/mailService'
@@ -36,11 +35,9 @@ const Setting = () => {
   },[user?.$id])
 
   return (
-    <ThemedView style={[styles.wrapper, { backgroundColor: theme.menuBackground }]}>
+    <ThemeView style={[styles.wrapper, { backgroundColor: theme.menuBackground }]}>
       <ImageBackground source={themeMode === 'dark' ? ImageBgDark : ImageBg} resizeMode='contain' style={[StyleSheet.absoluteFill, {opacity: 0.4, top:-50, bottom:50}]}></ImageBackground>
-        <ThemeView style={{borderBottomColor: theme.iconColor, borderStartColor: theme.textSecondary, borderBottomWidth: 1, height: '100%'}}>
-          
-
+        <ThemeView style={{borderBottomColor: theme.iconColor, borderStartColor: theme.textSecondary, borderBottomWidth: 1, height: '100%'}}>          
           <ThemeView style={[styles.dateWrapper, {borderBottomColor: theme.text}]}>
             <Ionicons name={themeMode === 'dark' ? "notifications-outline" : "notifications"} size={22} color={themeMode === 'dark' ? '#D1D5DB' : '#374151'} />
 
@@ -73,7 +70,7 @@ const Setting = () => {
             </ThemedText>                      
           </ThemeView>  
         </ThemeView>
-    </ThemedView>
+    </ThemeView>
   )
 }
 
