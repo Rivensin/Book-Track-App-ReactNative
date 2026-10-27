@@ -62,7 +62,7 @@ export const BooksProvider = ({children} : {children: React.ReactNode}) => {
         DATABASE_ID, 
         COLLECTION_ID, 
         ID.unique(),
-        {...data, userId: user.$id},
+        {...data, readCount: 0, userId: user.$id},
         [
           Permission.read(Role.user(user.$id)),
           Permission.update(Role.user(user.$id)),

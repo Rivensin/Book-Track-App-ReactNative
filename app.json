@@ -7,7 +7,6 @@
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "dark",
-
     "ios": {
       "supportsTablet": true
     },
@@ -15,7 +14,7 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      },      
+      },
       "predictiveBackGestureEnabled": false,
       "package": "com.rivensin.reactNative"
     },
@@ -24,7 +23,8 @@
     },
     "plugins": [
       "expo-router",
-      "expo-status-bar"
+      "expo-status-bar",
+      "expo-font"
     ],
     "extra": {
       "router": {},

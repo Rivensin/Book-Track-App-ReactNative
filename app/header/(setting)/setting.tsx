@@ -36,40 +36,39 @@ const Setting = () => {
 
   return (
     <ThemeView style={[styles.wrapper, { backgroundColor: theme.menuBackground }]}>
-      <ImageBackground source={themeMode === 'dark' ? ImageBgDark : ImageBg} resizeMode='contain' style={[StyleSheet.absoluteFill, {opacity: 0.4, top:-50, bottom:50}]}></ImageBackground>
-        <ThemeView style={{borderBottomColor: theme.iconColor, borderStartColor: theme.textSecondary, borderBottomWidth: 1, height: '100%'}}>          
-          <ThemeView style={[styles.dateWrapper, {borderBottomColor: theme.text}]}>
-            <Ionicons name={themeMode === 'dark' ? "notifications-outline" : "notifications"} size={22} color={themeMode === 'dark' ? '#D1D5DB' : '#374151'} />
+      <ImageBackground source={themeMode === 'dark' ? ImageBgDark : ImageBg} resizeMode='contain' style={[StyleSheet.absoluteFill, {opacity: 0.4, top:-50, bottom:50}]}></ImageBackground>                
+      
+      <ThemeView style={[styles.dateWrapper, {borderBottomColor: theme.text}]}>
+        <Ionicons name={themeMode === 'dark' ? "notifications-outline" : "notifications"} size={22} color={themeMode === 'dark' ? '#D1D5DB' : '#374151'} />
 
-            <ThemedText style={styles.textSender}>
-              Notification
-            </ThemedText>                      
-          </ThemeView> 
+        <ThemedText style={styles.textSender}>
+          Notification
+        </ThemedText>                      
+      </ThemeView> 
 
-          <ThemeView style={[styles.dateWrapper, {borderBottomColor: theme.text}]}>
-            <Ionicons name={themeMode === 'dark' ? "language-outline" : "language"} size={22} color={themeMode === 'dark' ? '#D1D5DB' : '#374151'} />            
+      <ThemeView style={[styles.dateWrapper, {borderBottomColor: theme.text}]}>
+        <Ionicons name={themeMode === 'dark' ? "language-outline" : "language"} size={22} color={themeMode === 'dark' ? '#D1D5DB' : '#374151'} />            
 
-            <ThemedText style={styles.textSender}>
-              Languange
-            </ThemedText>                      
-          </ThemeView>  
+        <ThemedText style={styles.textSender}>
+          Languange
+        </ThemedText>                      
+      </ThemeView>  
 
-          <ThemeView style={[styles.dateWrapper, {borderBottomColor: theme.text}]}>
-            <Ionicons name={themeMode === 'dark' ? "card-outline" : "card"} size={22} color={themeMode === 'dark' ? '#D1D5DB' : '#374151'} />
+      <ThemeView style={[styles.dateWrapper, {borderBottomColor: theme.text}]}>
+        <Ionicons name={themeMode === 'dark' ? "card-outline" : "card"} size={22} color={themeMode === 'dark' ? '#D1D5DB' : '#374151'} />
 
-            <ThemedText style={styles.textSender}>
-              Billing
-            </ThemedText>                      
-          </ThemeView>
+        <ThemedText style={styles.textSender}>
+          Billing
+        </ThemedText>                      
+      </ThemeView>
 
-          <ThemeView style={[styles.dateWrapper, {borderBottomColor: theme.text}]}>
-            <Ionicons name={themeMode === 'dark' ? "people-outline" : "people"} size={22} color={themeMode === 'dark' ? '#D1D5DB' : '#374151'} />
+      <ThemeView style={[styles.dateWrapper, {borderBottomColor: theme.text}]}>
+        <Ionicons name={themeMode === 'dark' ? "people-outline" : "people"} size={22} color={themeMode === 'dark' ? '#D1D5DB' : '#374151'} />
 
-            <ThemedText style={styles.textSender}>
-              Account
-            </ThemedText>                      
-          </ThemeView>  
-        </ThemeView>
+        <ThemedText style={styles.textSender}>
+          Account
+        </ThemedText>                      
+      </ThemeView>  
     </ThemeView>
   )
 }

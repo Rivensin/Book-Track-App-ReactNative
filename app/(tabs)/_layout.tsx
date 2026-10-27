@@ -17,7 +17,7 @@ const RootLayout = () => {
   return (
     <UserOnly>
       <StatusBar style='auto'/>
-      <Tabs
+      <Tabs        
         safeAreaInsets={{bottom: 0}} 
         screenOptions={{
           headerShown: false,
@@ -35,24 +35,10 @@ const RootLayout = () => {
           tabBarInactiveTintColor : theme.iconColor
         }}> 
 
-        {/* <Tabs.Screen 
-          name='profile' 
-          options={{
-            title: 'Profile',
-            tabBarIcon: ({focused, size}) => (
-              <Image 
-                source={focused ? ProfileActive : ProfileIdle}
-                style={{width:size, height: size}}              
-                resizeMode= 'contain' 
-              />
-            )
-          }} 
-        /> */}
-
         <Tabs.Screen
           name="index"
           options={{
-            href: null,
+            tabBarItemStyle: { display: 'none' },
           }}
         />
 

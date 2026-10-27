@@ -10,18 +10,19 @@
   },
   "dependencies": {
     "@expo/vector-icons": "^15.0.2",
-    "expo": "~57.0.24",
-    "expo-constants": "~57.0.18",
-    "expo-file-system": "~57.0.7",
-    "expo-linking": "~57.0.10",
-    "expo-router": "~57.0.22",
-    "expo-status-bar": "~57.0.1",
-    "react": "19.2.3",
-    "react-dom": "19.2.3",
-    "react-native": "0.86.3",
+    "expo": "^58.0.20",
+    "expo-constants": "~58.0.13",
+    "expo-file-system": "~58.0.12",
+    "expo-font": "~58.0.10",
+    "expo-linking": "~58.0.14",
+    "expo-router": "~58.0.27",
+    "expo-status-bar": "~58.0.4",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "react-native": "0.88.0",
     "react-native-appwrite": "^0.19.0",
-    "react-native-safe-area-context": "~5.7.0",
-    "react-native-screens": "~4.26.0",
+    "react-native-safe-area-context": "~5.10.1",
+    "react-native-screens": "~4.30.0",
     "react-native-url-polyfill": "^3.0.0"
   },
   "overrides": {
@@ -30,7 +31,7 @@
     }
   },
   "devDependencies": {
-    "@types/react": "~19.2.4",
+    "@types/react": "~19.3.0",
     "typescript": "~6.0.3"
   },
   "private": true

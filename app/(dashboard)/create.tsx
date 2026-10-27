@@ -73,7 +73,7 @@ const Create = () => {
         />
         <Spacer />
 
-        <ThemedButton onPress={handleSubmit} disabled={loading}>
+        <ThemedButton onPress={handleSubmit} disabled={loading} style={{width: '80%', alignItems: 'center'}}>
           <Text style={{color: '#fff'}}>
             {loading ? 'Saving...' : 'Create Book'}
           </Text>

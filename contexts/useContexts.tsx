@@ -1,6 +1,6 @@
 import { createContext, useEffect, useState } from "react";
 import { account, databases } from "../lib/appwrite";
-import { ID } from "react-native-appwrite";
+import { ID, Models, TablesDB  } from "react-native-appwrite";
 import { useColorScheme } from "react-native";
 
 type UserContextProps = {
@@ -11,6 +11,7 @@ type UserContextProps = {
   login: (email: string, password: string) => Promise<void>;
   register: (name:string, email: string, password: string) => Promise<void>;
   logout: () => Promise<void>;
+  getInitialUserTable: (id: string) =>  Promise<Models.Document>
 }
 
 const DATABASE_ID = '696a09b5001ba11db07e'
@@ -77,12 +78,29 @@ export const UserProvider = ({children} : {children: React.ReactNode}) => {
     }
   }
 
+  async function getInitialUserTable(id: string) {    
+    try {
+      const response = await databases.getDocument(
+        DATABASE_ID,
+        COLLECTION_ID,
+        id
+      )
+      return response
+    }     
+      catch (error : unknown) {
+      console.error('getInitialUserTable error:', error);
+
+      const message = error instanceof Error ? error.message : 'Unknown Error' 
+      throw new Error(message)
+    }
+  }
+
   useEffect(() => { 
     getInitialUserValue()
   }, [])
 
   return (
-    <UserContext.Provider value={{user, authChecked, themeMode, toggleTheme,login, register, logout}}>
+    <UserContext.Provider value={{user, authChecked, themeMode, toggleTheme,login, register, logout, getInitialUserTable}}>
       {children}
     </UserContext.Provider>
   )
