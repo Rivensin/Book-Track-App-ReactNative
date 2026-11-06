@@ -1,6 +1,6 @@
 import { createContext, useEffect, useState } from "react";
 import { account, databases } from "../lib/appwrite";
-import { ID, Models, TablesDB  } from "react-native-appwrite";
+import { ID, Models  } from "react-native-appwrite";
 import { useColorScheme } from "react-native";
 
 type UserContextProps = {

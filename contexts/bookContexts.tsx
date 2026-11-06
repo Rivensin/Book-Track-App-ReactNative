@@ -1,12 +1,12 @@
 import { createContext, useEffect, useState } from "react";
 import { databases, client } from "../lib/appwrite";
-import { ID, Permission, Role, Query } from "react-native-appwrite";
+import { ID, Permission, Role, Query, Models } from "react-native-appwrite";
 import UseUser from "../hooks/useUser";
 
 type BooksContextProp = {
   books: string[];
-  fetchBooks: () => Promise<void>;
-  fetchBooksById: (id: string) => Promise<void>;
+  fetchBooks: (status?: string) => Promise<void>;
+  fetchBooksById: (id: string) => Promise<Models.Document>;
   createBook: (data: Book) => Promise<void>;
   deleteBook: (data: string) => Promise<void>;
 }
@@ -19,6 +19,7 @@ type Book = {
 
 const DATABASE_ID = '696a09b5001ba11db07e'
 const COLLECTION_ID = 'books'
+const COLLECTION_ID2 = '6ae4c991001db07f8571'
 
 export const BookContext = createContext<BooksContextProp | null>(null);
 
@@ -26,15 +27,19 @@ export const BooksProvider = ({children} : {children: React.ReactNode}) => {
   const [books, setBooks] = useState([])
   const { user } = UseUser()
 
-  async function fetchBooks() {
+  async function fetchBooks(status?: string) {
     try {
+      let queries = []
+      if(status){
+        queries.push(Query.equal('status', status))
+      }
+
       const response = await databases.listDocuments(
         DATABASE_ID, 
         COLLECTION_ID,
-        [
-          Query.equal('userId', user.$id)
-        ]
+        queries
       )
+
       setBooks(response.documents)
     } catch (error : unknown) {
       const message = error instanceof Error ? error.message : 'Unknown Error' 
@@ -47,7 +52,10 @@ export const BooksProvider = ({children} : {children: React.ReactNode}) => {
       const response = await databases.getDocument(
         DATABASE_ID, 
         COLLECTION_ID,
-        id
+        id,
+        [
+          Query.select(['*', 'bookId.*'])
+        ]
       )
       return response
     } catch (error : unknown) {
@@ -92,8 +100,7 @@ export const BooksProvider = ({children} : {children: React.ReactNode}) => {
     let unsubscribe
     const channel = `databases.${DATABASE_ID}.collections.${COLLECTION_ID}.documents`
 
-    if(user){
-      fetchBooks()
+    if(user){      
       unsubscribe= client.subscribe(channel, (response) => {
         const {payload, events} = response
         

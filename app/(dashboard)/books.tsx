@@ -17,9 +17,8 @@ const Books = () => {
   const router = useRouter();
 
   return (
-    <ThemeView style={styles.container} safe={true}>
+    <ThemeView style={styles.container}>
       <ImageBackground source={themeMode === 'dark' ? ImageBgDark : ImageBg} resizeMode='contain' style={[StyleSheet.absoluteFill, {opacity: themeMode === 'light' ? 0.4 : 0.8, backgroundColor: theme.background}]}></ImageBackground>
-      <Spacer />
 
       <ThemedText title={true} style={[styles.heading, {color: theme.textSecondary}]}>
         Your Reading List
@@ -48,7 +47,7 @@ const styles = StyleSheet.create({
   container : {
     flex: 1,
     alignItems: 'stretch',
-    // justifyContent: 'center',
+    paddingTop: 24
   },
   heading: {
     fontWeight: 'bold',

@@ -1,4 +1,5 @@
-import { StyleSheet, Image, Text, useColorScheme,View, ScrollView, ImageBackground, Dimensions, Pressable } from 'react-native'
+import { StyleSheet, Image, Text,View, ScrollView, ImageBackground, Dimensions, Pressable } from 'react-native'
+import { useState, useEffect } from 'react'
 import { useRouter } from 'expo-router'
 import ThemeView from '../../components/ThemeView'
 import ThemedText from '../../components/ThemedText'
@@ -20,11 +21,25 @@ import profileIconIdle from '../../assets/img/profile-icon-idle.png'
 import bronzeMedal from '../../assets/img/bronze-medal.png'
 
 const Home = () => {
-  const { user, themeMode } = UseUser()  
+  const { user, themeMode, getInitialUserTable } = UseUser()  
   const theme = Colors[themeMode]
   const router = useRouter()
+  const [userInfo, setUserInfo] = useState(null) 
 
   const screenWidth = Dimensions.get('window').width
+
+  useEffect(() => {
+    async function fetchUserInfo(){
+      try {
+        const response = await getInitialUserTable(user.$id)             
+        setUserInfo(response)                
+      }catch (error){
+        console.error(error)
+      }
+    }
+
+    fetchUserInfo()
+  },[user, getInitialUserTable])
 
   return (
     <ScrollView contentContainerStyle={{flexGrow: 1}} style={{backgroundColor: theme.background}}>
@@ -59,7 +74,7 @@ const Home = () => {
               </View>
 
               <View style={[styles.pointBadge, {backgroundColor: themeMode === 'dark' ? '#fff' : '#FFFF2E'}]}>
-                <Text style={styles.pointText}>8305</Text>
+                <Text style={styles.pointText}>{userInfo?.coin}</Text>
               </View>
             </ThemeView>
           </Pressable>
@@ -87,24 +102,24 @@ const Home = () => {
             </View>
 
             <View style={styles.grid}>
-              <ThemeView style={styles.gridItems}>
+              <Pressable style={styles.gridItems} onPress={() => router.push('/rentBooks')}>
                 <Image source={rentBook} style={{width: 35, height: 35,}} />
                 <ThemedText style={{fontSize: 12, fontWeight: 'bold', color: theme.textSecondary}}>
                   Rent Book
-                </ThemedText>     
-              </ThemeView>
+                </ThemedText>   
+              </Pressable>  
 
-              <ThemeView style={styles.gridItems}>
+              <Pressable style={styles.gridItems} onPress={() => router.push('/readBooks')}>
                 <Image source={readBook} style={{width: 35, height: 35,}} />
                 <ThemedText style={{fontSize: 12, fontWeight: 'bold', color: theme.textSecondary}}>
                   Read Book
                 </ThemedText>     
-              </ThemeView>
+              </Pressable>
 
               <Pressable style={styles.gridItems} onPress={() => router.push('/books')}>
                 <Image source={bookList} style={{width: 35, height: 35,}} />
                 <ThemedText style={{fontSize: 12, fontWeight: 'bold', color: theme.textSecondary}}>
-                  Book List
+                  My Book
                 </ThemedText>     
               </Pressable>
 

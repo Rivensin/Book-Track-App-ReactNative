@@ -45,7 +45,7 @@ const MailDetails = () => {
     <ThemeView style={[styles.wrapper, { backgroundColor: theme.menuBackground }]}>
       <ImageBackground source={themeMode === 'dark' ? ImageBgDark : ImageBg} resizeMode='contain' style={[StyleSheet.absoluteFill, {opacity: 0.4, top:-50, bottom:50}]}></ImageBackground>
 
-      <ThemeView style={{paddingHorizontal: 16, borderBottomColor: theme.iconColor, borderStartColor: theme.textSecondary, borderStartWidth: 1, borderBottomWidth: 1, paddingVertical: 10, height: '100%'}}>
+      <ThemeView style={{paddingHorizontal: 16, borderBottomColor: theme.iconColor, borderBottomWidth: 1, paddingVertical: 10, height: '100%'}}>
         <ThemeView style={[styles.dateWrapper, {borderBottomColor: theme.text}]}>
           <ThemedText style={styles.textSender}>
             Date : 
@@ -88,7 +88,8 @@ export default MailDetails
 
 const styles = StyleSheet.create({
   wrapper: {
-    flex: 1
+    flex: 1,
+    paddingTop: 4,
   },
   container: {
     flex: 1,

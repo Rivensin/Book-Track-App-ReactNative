@@ -56,6 +56,8 @@ const RootLayout = () => {
         <Tabs.Screen 
           name='books' 
           options={{
+            headerShown: true,
+            header: () => <HeaderCustom />,              
             title: 'Books',
             tabBarIcon: ({focused, size}) => (
               <Image 
@@ -83,8 +85,30 @@ const RootLayout = () => {
 
         <Tabs.Screen 
           name='books/[id]' 
-          options={{href:null}} 
+          options={{
+            headerShown: true,
+            header: () => <HeaderCustom />, 
+            tabBarItemStyle: { display: 'none' },
+          }} 
+        /> 
+
+        <Tabs.Screen 
+          name='readBooks' 
+          options={{
+            headerShown: true,
+            header: () => <HeaderCustom />, 
+            tabBarItemStyle: { display: 'none' },
+          }} 
         />
+
+        <Tabs.Screen 
+          name='rentBooks' 
+          options={{
+            headerShown: true,
+            header: () => <HeaderCustom />, 
+            tabBarItemStyle: { display: 'none' },
+          }} 
+        />           
       </Tabs>
     </UserOnly>
   )
