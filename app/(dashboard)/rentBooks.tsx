@@ -10,12 +10,12 @@ import { useRouter } from 'expo-router/build/exports'
 import ImageBg from '../../assets/img/Bibliophile-pana.png'
 import ImageBgDark from '../../assets/img/Bibliophile-pana-dark.png'
 import { useEffect } from 'react'
+import BookCard from '../../components/BookCard'
 
 const RentBooks = () => {
   const { themeMode } = UseUser()  
   const theme = Colors[themeMode]
   const { books, fetchBooks } = useBooks()
-  const router = useRouter();
 
   useEffect(() => {
     fetchBooks('rent')
@@ -30,19 +30,7 @@ const RentBooks = () => {
         Rent Our Premium Books
       </ThemedText>
 
-      <FlatList 
-        data={books}
-        keyExtractor={(item) => item.$id}
-        contentContainerStyle={styles.list}
-        renderItem={({ item }) => (
-          <Pressable onPress={() => router.push(`/books/${item.$id}`)}>
-            <ThemedCard style={[styles.card, {backgroundColor: theme.boxBackground}]}>
-              <ThemedText style={[styles.title, {color: theme.text}]}>{item.title}</ThemedText>
-              <ThemedText style={{color: theme.textTertiary}}>Written by : {item.author}</ThemedText>
-            </ThemedCard>
-          </Pressable>
-        )}
-      />
+      <BookCard book={books} />
     </ThemeView>
   )
 }
@@ -59,25 +47,5 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 18,
     textAlign: 'center',
-  },
-  list: {
-    marginTop: 20,
-    opacity: 0.8
-  },
-  card: {
-    width: '90%',
-    marginHorizontal: '5%',
-    marginVertical: 10,
-    paddingLeft: 14,
-    borderColor: '#000',
-    borderWidth: 0.5,
-    borderLeftColor: '#A1C9FB',
-    borderRadius: 8,
-    borderLeftWidth: 4,
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    marginBottom: 10,
-  } 
+  }  
 })

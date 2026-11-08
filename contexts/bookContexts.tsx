@@ -4,27 +4,31 @@ import { ID, Permission, Role, Query, Models } from "react-native-appwrite";
 import UseUser from "../hooks/useUser";
 
 type BooksContextProp = {
-  books: string[];
+  books: Book[];
+  booksUser: Book[];
   fetchBooks: (status?: string) => Promise<void>;
+  fetchBooksUser: (status?: string) => Promise<void>;
   fetchBooksById: (id: string) => Promise<Models.Document>;
   createBook: (data: Book) => Promise<void>;
   deleteBook: (data: string) => Promise<void>;
 }
 
-type Book = {
+export type Book = {
   title: string;
   author: string;
   description: string;
+  price: number
 }
 
 const DATABASE_ID = '696a09b5001ba11db07e'
 const COLLECTION_ID = 'books'
-const COLLECTION_ID2 = '6ae4c991001db07f8571'
+const COLLECTION_ID_USERBOOK = '6af091de0016ca86856d'
 
 export const BookContext = createContext<BooksContextProp | null>(null);
 
 export const BooksProvider = ({children} : {children: React.ReactNode}) => {
-  const [books, setBooks] = useState([])
+  const [books, setBooks] = useState<Book[]>([])
+  const [booksUser, setBooksUser] = useState<Book[]>([])
   const { user } = UseUser()
 
   async function fetchBooks(status?: string) {
@@ -41,6 +45,43 @@ export const BooksProvider = ({children} : {children: React.ReactNode}) => {
       )
 
       setBooks(response.documents)
+    } catch (error : unknown) {
+      const message = error instanceof Error ? error.message : 'Unknown Error' 
+      throw new Error(message)
+    }
+  }
+
+  async function fetchBooksUser() {
+    try {      
+      //Get all books that belong to the user
+      const userBookResponse = await databases.listDocuments(
+        DATABASE_ID, 
+        COLLECTION_ID_USERBOOK,
+        [
+          Query.equal('userId', user.$id)
+        ]
+      )      
+
+      //Extract Book Id
+      const bookIds = userBookResponse.documents.map(item => item.bookIdCollection)
+
+      //Handle if user have no books
+      if(bookIds.length === 0){
+        setBooksUser([])
+        return
+      }
+
+      //Get Book Documents
+      const bookResponse = await databases.listDocuments(
+        DATABASE_ID,
+        COLLECTION_ID,
+        [
+          Query.equal('$id',bookIds)
+        ]
+      )
+
+      setBooksUser(bookResponse.documents)
+
     } catch (error : unknown) {
       const message = error instanceof Error ? error.message : 'Unknown Error' 
       throw new Error(message)
@@ -123,7 +164,7 @@ export const BooksProvider = ({children} : {children: React.ReactNode}) => {
   }, [user])
 
   return (
-    <BookContext.Provider value={{books, fetchBooks, fetchBooksById, createBook, deleteBook}}>
+    <BookContext.Provider value={{books, booksUser, fetchBooks, fetchBooksUser, fetchBooksById, createBook, deleteBook}}>
       {children}
     </BookContext.Provider>
   )

@@ -1,20 +1,26 @@
 import { StyleSheet, FlatList, Pressable, ImageBackground } from 'react-native'
+import { useEffect } from 'react'
 import ThemedText from '../../components/ThemedText'
 import ThemeView from '../../components/ThemeView'
 import ThemedCard from '../../components/ThemeCard'
-import Spacer from '../../components/Spacer'
 import useBooks from '../../hooks/useBooks'
 import UseUser from '../../hooks/useUser'
 import { Colors } from '../../constants/Color'
 import { useRouter } from 'expo-router/build/exports'
 import ImageBg from '../../assets/img/Bibliophile-pana.png'
 import ImageBgDark from '../../assets/img/Bibliophile-pana-dark.png'
+import BookCard from '../../components/BookCard'
+
 
 const Books = () => {
   const { themeMode } = UseUser()  
   const theme = Colors[themeMode]
-  const { books } = useBooks()
+  const { booksUser, fetchBooksUser } = useBooks()
   const router = useRouter();
+
+  useEffect(() => {
+    fetchBooksUser()
+  },[])
 
   return (
     <ThemeView style={styles.container}>
@@ -24,19 +30,20 @@ const Books = () => {
         Your Reading List
       </ThemedText>
 
-      <FlatList 
-        data={books}
-        keyExtractor={(item) => item.$id}
-        contentContainerStyle={styles.list}
-        renderItem={({ item }) => (
-          <Pressable onPress={() => router.push(`/books/${item.$id}`)}>
-            <ThemedCard style={[styles.card, {backgroundColor: theme.boxBackground}]}>
-              <ThemedText style={[styles.title, {color: theme.text}]}>{item.title}</ThemedText>
-              <ThemedText style={{color: theme.textTertiary}}>Written by : {item.author}</ThemedText>
-            </ThemedCard>
-          </Pressable>
-        )}
-      />
+      {booksUser.length === 0 ? (
+        <ThemeView style={{justifyContent: 'center', alignItems: 'center', height: '80%'}}>
+          <ThemedText style={{fontSize: 26, color: theme.textQuarternary, paddingBottom: '30'}}>
+            You have no books for now
+          </ThemedText>
+          <ThemedText style={{fontSize: 16, color: theme.textQuarternary}}>
+            Add some book to your list!
+          </ThemedText>
+        </ThemeView>
+      ) 
+       : 
+      (          
+        <BookCard book={booksUser} />        
+      )}
     </ThemeView>
   )
 }
@@ -53,25 +60,5 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 18,
     textAlign: 'center',
-  },
-  list: {
-    marginTop: 20,
-    opacity: 0.8
-  },
-  card: {
-    width: '90%',
-    marginHorizontal: '5%',
-    marginVertical: 10,
-    paddingLeft: 14,
-    borderColor: '#000',
-    borderWidth: 0.5,
-    borderLeftColor: '#A1C9FB',
-    borderRadius: 8,
-    borderLeftWidth: 4,
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    marginBottom: 10,
-  } 
+  }  
 })
